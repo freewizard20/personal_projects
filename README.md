@@ -1,5 +1,5 @@
-# Jinhyuk Jeon's personal projects
 # Under Construction
+# Jinhyuk Jeon's personal projects
 
 **Reorganized project repositories** too late to realize commit points dissapear when repositories get deleted :cry:. starting from zero base again
 
