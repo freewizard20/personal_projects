@@ -1,4 +1,4 @@
-# Jinhyuk Jeon's personal studies
+# Jinhyuk Jeon's personal projects
 
 **Reorganized project repositories**
 
