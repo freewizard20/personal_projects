@@ -29,4 +29,4 @@
 
 ## Sad news
 
-Lost all my archives while formatting my laptop :sad:
+Lost all my archives while formatting my laptop :cry:
