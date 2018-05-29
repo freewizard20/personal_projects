@@ -1,4 +1,4 @@
-# Algorithm implementations and practice
+# Algorithm practice and implementations
 
 ## How to run
 
