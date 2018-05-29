@@ -1,0 +1,28 @@
+# Algorithm implementations and practice
+
+## How to run
+
+these code may not run. try :
+
+* for c/cpp programs
+
+  ` g++ -o {{executable name}} {{code file name}}`
+  
+* for java programs(on windows. for linux, no need for encoding/classpath flags)
+
+` javac {{java file name}} -encoding UTF8
+
+java -classpath . {{Main class name}}`
+
+## Practice sources
+
+1. [Baekjoon Online Judge](https://www.acmicpc.net/)
+2. [Dovelet.com](http://59.23.150.58/)
+3. [SW Expert Academy](https://swexpertacademy.com/main/main.do)
+4. [Leetcode](https://leetcode.com/)
+5. [GeekforGeeks](https://www.geeksforgeeks.org)
+6. [Careercup](https://www.careercup.com/)
+
+## Postscript : 
+
+*Hundreds of problems solved on whiteboards, hundreds more solved on paper. Hand coding gives you fundamental strength on programming*
