@@ -1,6 +1,6 @@
 # Jinhyuk Jeon's personal projects
 
-**Reorganized project repositories**
+**Reorganized project repositories** too late to realize commit points dissapear when repositories get deleted :cry: starting from zero base again
 
 > inspired while talking with linecorp interviewers(devs). Documentation and proper SCM habits are important as a developer.
 
