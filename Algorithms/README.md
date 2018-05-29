@@ -25,4 +25,4 @@ java -classpath . {{Main class name}}`
 
 ## Postscript : 
 
-*Many more problems solved on whiteboards, many more solved on paper. Hand coding gives you fundamental strength on programming*
+**I do hand coding;** *Many more problems solved on whiteboards, many more solved on paper. Hand coding gives you fundamental strength on programming*
