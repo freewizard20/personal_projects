@@ -2,15 +2,15 @@
 
 **Reorganized project repositories**
 
-> inspired while talking with linecorp recruiters(devs). Documentation and proper SCM habits are important as a developer.
+> inspired while talking with linecorp interviewers(devs). Documentation and proper SCM habits are important as a developer.
 
 ## using git
 
 * basic configs(required on first use)
 
-    git config --global user.name "{{username}}"
+`git config --global user.name "{{username}}"`
     
-    git config --global user.email "{{email}}"
+ `git config --global user.email "{{email}}"`
 
 * stage changes
 
