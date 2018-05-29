@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    </head>
+    <body>
+    <h1>Welcole to My Awesome News App!</h1>
+    <h3>Sort Articles by <a href="{{url_for('index',sort='titledown')}}">TItle(V)</a> <a href="{{url_for('index',sort='titleup')}}">Title(ㅅ)</a> <a href="{{url_for('index',sort='timeup')}}">Datetime(V)</a> <a href="{{url_for('index',sort='timedown')}}">Datetime(ㅅ)</a><h3>
+    <h5>Search :</h5>
+    <form action="/search">
+      <input type="text" name="search" value=""><br>
+      <button type="submit">search</button>
+    </form>
+    <table>
+        <thead>
+          <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Media</th>
+              <th>Uploaded At</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for article in articles %}
+          <tr>
+            <td><a href= {{urlarr[article['id']]}}>{{article['title']}}</a></td>
+            <td>{{article['author']}}</td>
+            <td>{{article['media']}}</td>
+            <td>{{article['datetime']}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+    </body>
+</html>

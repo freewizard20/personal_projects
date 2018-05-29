@@ -1,0 +1,17 @@
+{
+  "name": "freewizard",
+  "version": "1.0.0",
+  "description": "web scraper via nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "freewizar",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "cheerio-httpcli": "^0.6.11",
+    "express": "^4.14.1",
+    "request": "^2.79.0"
+  }
+}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+</head>
+<body>
+<img src={{dice_images[dice1]}} style="height:50px">
+<img src={{dice_images[dice2]}} style="height:50px">
+{% if win==0 %}
+    <h6>You lose</h6>
+    <a href = {{send_init}}>Restart Game</a>
+{% elif win==1 %}
+    <h6>You Win</h6>
+    <a href = {{send_init}}>Restart Game</a>
+{% else %}
+    <h6>Initial Value : {{send_init2}}</h6>
+    <a href = {{send_init}}>Next</a>
+{% endif %}
+</body>
+</html>

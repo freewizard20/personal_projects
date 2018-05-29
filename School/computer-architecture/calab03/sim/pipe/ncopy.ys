@@ -1,0 +1,89 @@
+#/* $begin ncopy-ys */
+##################################################################
+# ncopy.ys - Copy a src block of len words to dst.
+# Return the number of positive words (>0) contained in src.
+#
+# Include your name and ID here.
+#
+# Describe how and why you modified the baseline code.
+#
+##################################################################
+# Do not modify this portion
+# Function prologue.
+# %rdi = src, %rsi = dst, %rdx = len
+ncopy:
+
+##################################################################
+# You can modify this portion
+	# Loop header
+	xorq %rax, %rax
+	rrmovq %rdx, %r11
+	iaddq $-8, %r11
+	jl Lleft
+
+L1:	mrmovq (%rdi), %r10
+	andq %r10, %r10
+	rmmovq %r10, (%rsi)
+	jle L2
+	iaddq $1, %rax
+L2:	mrmovq 8(%rdi), %r10
+	andq %r10, %r10
+	rmmovq %r10, 8(%rsi)
+	jle L3
+	iaddq $1, %rax
+L3:	mrmovq 16(%rdi), %r10
+	andq %r10, %r10
+	rmmovq %r10, 16(%rsi)
+	jle L4
+	iaddq $1, %rax
+L4:	mrmovq 24(%rdi), %r10
+	andq %r10, %r10
+	rmmovq %r10, 24(%rsi)
+	jle L5
+	iaddq $1, %rax
+L5:	mrmovq 32(%rdi), %r10
+	andq %r10, %r10
+	rmmovq %r10, 32(%rsi)
+	jle L6
+	iaddq $1, %rax
+L6:	mrmovq 40(%rdi), %r10
+	andq %r10, %r10
+	rmmovq %r10, 40(%rsi)
+	jle L7
+	iaddq $1, %rax
+L7:	mrmovq 48(%rdi), %r10
+	andq %r10, %r10
+	rmmovq %r10, 48(%rsi)
+	jle L8
+	iaddq $1, %rax
+L8:	mrmovq 56(%rdi), %r10
+	andq %r10, %r10
+	rmmovq %r10, 56(%rsi)
+	jle Roop
+	iaddq $1, %rax
+Roop:	iaddq $-8, %rdx
+	iaddq $64, %rdi
+	iaddq $64, %rsi
+	iaddq $-8, %r11
+	jge L1
+Lleft:	andq %rdx,%rdx		# len <= 0?
+	jle Done		# if so, goto Done:
+Loop:	mrmovq (%rdi), %r10
+	andq %r10, %r10	# read val from src...
+	rmmovq %r10, (%rsi)	# ...and store it to dst		# val <= 0?
+	jle Npos		# if so, goto Npos:
+	iaddq $1, %rax		# count++
+Npos:	iaddq $-1, %rdx		# len--
+	iaddq $8, %rdi		# src++
+	iaddq $8, %rsi		# dst++
+	andq %rdx,%rdx		# len > 0?
+	jg Loop			# if so, goto Loop:
+##################################################################
+# Do not modify the following section of code
+# Function epilogue.
+Done:
+	ret
+##################################################################
+# Keep the following label at the end of your function
+End:
+#/* $end ncopy-ys */

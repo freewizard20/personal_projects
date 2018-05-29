@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+</head>
+<body>
+  <h1>Search results for :
+{% for ss in sam %}
+
+<span>{{ss}}</span>
+
+{% endfor %}
+</h1>
+<table>
+
+        <tbody>
+        {% for art in artarray %}
+          <tr>
+            <td><a href={{art['link']}}>{{art['title']}}</a></td>
+            <td>{{art['content'][0:250]}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

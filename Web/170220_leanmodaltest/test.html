@@ -1,0 +1,83 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+      <style>
+      #lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
+}
+      </style>
+
+    </head>
+
+    <body>
+
+
+    <a rel="link1" href = "#test1">test1</a>
+    <a rel="link2" href = "#test2">test2</a>
+    <a rel="link3" href = "#test3">test3</a>
+    <a rel="link4" href = "#test4">test4</a>
+    <a rel="link5" href = "#test5">test5</a>
+    <a rel="link6" href = "#test6">test6</a>
+
+
+<div id="test1" style="display:none;background-color:white;width:400px;height:150px;border-radius:5px;padding:15px;">
+  asdasdasdasdsdsadas111
+  <button class="modal_close" style="display:block;margin-top : 30px;">close</button>
+</div>
+
+<div id="test2" style="display:none;background-color:white;width:400px;height:150px;border-radius:5px;padding:15px;">
+  asdasdasdasdsdsadas222
+  <button class="modal_close" style="display:block;margin-top : 30px;">close</button>
+</div>
+
+<div id="test3" style="display:none;background-color:white;width:400px;height:150px;border-radius:5px;padding:15px;">
+  asdasdasdasdsdsadas333
+  <button class="modal_close" style="display:block;margin-top : 30px;">close</button>
+</div>
+
+<div id="test4" style="display:none;background-color:white;width:400px;height:150px;border-radius:5px;padding:15px;">
+  asdasdasdasdsdsadas444
+  <button class="modal_close" style="display:block;margin-top : 30px;">close</button>
+</div>
+
+<div id="test5" style="display:none;background-color:white;width:400px;height:150px;border-radius:5px;padding:15px;">
+  asdasdasdasdsdsadas555
+  <button class="modal_close" style="display:block;margin-top : 30px;">close</button>
+</div>
+
+<div id="test6" style="display:none;background-color:white;width:400px;height:150px;border-radius:5px;padding:15px;">
+  asdasdasdasdsdsadas666
+  <button class="modal_close" style="display:block;margin-top : 30px;">close</button>
+</div>
+
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+      <script type="text/javascript" src="jquery.leanModal.min.js"></script>
+      <script>
+      $(document).ready(function(){
+        $("a[rel*=link1]").leanModal({top:200,overlay:0.5,closeButton:".modal_close"});
+        $("a[rel*=link2]").leanModal({top:200,overlay:0.5,closeButton:".modal_close"});
+        $("a[rel*=link3]").leanModal({top:200,overlay:0.5,closeButton:".modal_close"});
+        $("a[rel*=link4]").leanModal({top:200,overlay:0.5,closeButton:".modal_close"});
+        $("a[rel*=link5]").leanModal({top:200,overlay:0.5,closeButton:".modal_close"});
+        $("a[rel*=link6]").leanModal({top:200,overlay:0.5,closeButton:".modal_close"});
+      });
+      </script>
+    </body>
+  </html>

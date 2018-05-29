@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>freewizard93</title>
+    <style>
+    #test2{
+      background-color:red;
+    }
+    </style>
+  </head>
+  <body>
+    <h1 onclick="testmethod()">using test method  </h1>
+    <div id="app"></div>
+    <div id="test"></div>
+    <h3 onclick="funs()">   outside of vue render   </h3>
+    <script>
+    var testttt = 323;
+    </script>
+    <script>
+    var jeon;
+    </script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="dist/build.js"></script>
+    <script>
+    function funs(){
+      console.log("from funs");
+    }
+    function testmethod(){
+      console.log(jeon);
+    }
+    </script>
+  </body>
+</html>
