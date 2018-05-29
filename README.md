@@ -9,6 +9,7 @@
 * basic configs(required on first use)
 
     git config --global user.name "{{username}}"
+    
     git config --global user.email "{{email}}"
 
 * stage changes
@@ -59,15 +60,20 @@
 * indented test
 
     > {{text}}
+    
 * code
 
     {{indent four spaces or a equivalent tab}}
+    
 * links
 
     [{{link text}}]({{link address}})
+    
 * emojis
 
     :cry:
+    
 [check out cheetsheet](https://gist.github.com/roachhd/1f029bd4b50b8a524f3c)
+
 
 > [reference from here](https://gist.github.com/ihoneymon/652be052a0727ad59601)
