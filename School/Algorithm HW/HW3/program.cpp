@@ -7,6 +7,10 @@
 
 using namespace std;
 
+bool custom(vector<int> a, vector<int> b){
+    return a[0]>b[0];
+}
+
 void sccmatrix(vector<vector<int>> & matrix){
 
     // check time
@@ -72,16 +76,43 @@ void scclist(vector<vector<int>> & list){
 
     for(int x : visited) x = 0;
 
-    vector<vector<int>> result(list.size(), vector<int>(list.size()));
+    vector<vector<int>> result;
 
     for(int i = 0 ; i < list.size() ; i++){
         if(visited[i]==0){
             buffer.push(i);
+            result.push_back(vector<int>());
             while(buffer.size()!=0){
-                
+                result[result.size()-1].push_back(buffer.top());
+                int curr = buffer.top();
+                buffer.pop();
+                visited[curr]=1;
+                for(int j = 0 ; j < result[i].size() ; j++){
+                    if(visited[result[i][j]]==0){
+                        buffer.push(result[i][j]);
+                    }
+                }
             }
         }
     }
+
+    // sort and print result
+    for(int i = 0 ; i < result.size() ; i++){
+        sort(result[i].begin(),result[i].end());
+    }
+
+    sort(result.begin(),result.end(),custom);
+
+    for(int i = 0 ; i < result.size() ; i++){
+        for(int j = 0 ; j < result[i].size();j++){
+            if(j==result[i].size()-1){
+                cout << result[i][j]<<endl;
+            }else{
+                cout << result[i][j] << " " ;
+            }
+        }
+    }
+
     // print time
     end = chrono::high_resolution_clock::now();
     chrono::duration<double> elapsed_seconds = end - start;
