@@ -56,17 +56,13 @@ void scclist(vector<vector<int>> & list){
     cout << list.size() << endl;
     for(int i = 0; i < list.size() ; i++){
         if(visited[i]==0){
-            // start pathfinder from node i
-            //cout << "Fresh new start " << i << endl;
             int curr=i;
             path.push(i);
             visited[i]=1;
             while(path.size()!=0){
                 int flag = 0;
                 for(int j = 0 ; j < list[curr].size();j++){
-                    //cout << "curr " << curr <<  " checking " << list[curr][j] << endl;
                     if(visited[list[curr][j]]==0){
-                        //cout << "moving to " << list[curr][j] << "from " << curr << endl;
                         path.push(list[curr][j]);
                         flag = 1;
                         visited[path.top()]=1;
@@ -76,52 +72,13 @@ void scclist(vector<vector<int>> & list){
                 }
                 if(flag==0){
                     // nowhere to go!
-                    cout << "nowhere to go! " << curr << endl;
                     vert.push(curr);
                     path.pop();
                     if(path.size()!=0) curr = path.top();
                 }
             }
-            cout << i << " terminated" << endl;
         }
     }
-    cout << "kk " <<  vert.size() << endl;
-    /*while(vert.size()!=0){
-        cout << vert.top() << endl;
-        vert.pop();
-    }*/
-
-    // fill vert buffer
-    /*cout << "see tmp buffer" << endl;
-
-    while(tmp.size()!=0){
-        vert.push(tmp.top());
-        cout << tmp.top() << " ";
-        tmp.pop();
-    }
-
-    cout << endl;
-    */
-    
-    /*for(int i = 0 ; i < list.size() ; i++){
-       if(visited[i]==0) {
-           cout << i << endl;
-           filldfs(i,visited,list,vert);
-        }
-    }*/
-    
-    
-    /*cout << "see vert" << endl;
-    while(vert.size()!=0){
-        tmp.push(vert.top());
-        cout << vert.top() << " ";
-        vert.pop();
-    }
-    cout << endl;
-    while(tmp.size()!=0){
-        vert.push(tmp.top());
-        tmp.pop();
-    }*/
 
     // make a reverted graph
     vector<vector<int>> trans(list.size(),vector<int>());
@@ -131,16 +88,6 @@ void scclist(vector<vector<int>> & list){
             trans[list[i][j]].push_back(i);
         }
     }
-
-    /*
-    cout << "see trans buffer" << endl;
-    for(int i = 0 ; i < trans.size() ; i++){
-        for(int j = 0 ; j < trans[i].size() ; j++){
-            cout << trans[i][j] << " ";
-        }
-        cout << endl;
-    }
-    */
 
     // do dfs on trans by vert order
     for(int i = 0 ; i < visited.size() ; i++){
@@ -153,12 +100,10 @@ void scclist(vector<vector<int>> & list){
         int i = vert.top();
         vert.pop();
         if(visited[i]==0){
-            //cout << "big : " << i << endl;
             buffer.push(i);
             result.push_back(vector<int>());
             while(buffer.size()!=0){
                 int curr = buffer.top();
-                //cout << "curr : " << curr << " ";
                 if(visited[curr]==0){
                     result[result.size()-1].push_back(buffer.top());
                     visited[curr]=1;
@@ -166,15 +111,13 @@ void scclist(vector<vector<int>> & list){
                 buffer.pop();
                 for(int j = 0 ; j < trans[curr].size() ; j++){
                     if(visited[trans[curr][j]]==0){
-                        //cout << "pushing " << trans[curr][j] << endl;
                         buffer.push(trans[curr][j]);
                     }
                 }
             }
-            //cout << endl;
         }
     }
-    // print time
+    
     end = chrono::high_resolution_clock::now();
 
 
@@ -185,16 +128,13 @@ void scclist(vector<vector<int>> & list){
 
     sort(result.begin(),result.end(),custom);
 
-    //cout << "print result" << endl;
     ofstream out("out.txt");
 
     for(int i = 0 ; i < result.size() ; i++){
         for(int j = 0 ; j < result[i].size();j++){
             if(j==result[i].size()-1){
-                //cout << (result[i][j]+1) << endl;
                 out << (result[i][j]+1) << " " << endl;
             }else{
-                //cout << (result[i][j]+1) << " " ;
                 out << (result[i][j]+1) << " " ;
             }
         }
@@ -202,6 +142,7 @@ void scclist(vector<vector<int>> & list){
 
     out.close();
 
+    // print time
     chrono::duration<double> elapsed_seconds = end - start;
     cout << elapsed_seconds.count() << "s" << endl;
 }
@@ -254,29 +195,7 @@ int main(int argc, char ** argv){
         if(x!=0) arref.push_back(arseq.size());
         else arref.push_back(0);
     }
-    /*
-    cout << "see matrix" << endl;
-    for(int i = 0 ; i < matrix.size() ; i++){
-        for(int j = 0 ; j < matrix[i].size(); j++){
-            cout << matrix[i][j] << " ";
-        }
-        cout << endl;
-    }
-    
-    cout << "see list" << endl;
-    for(int i = 0 ; i < adjlist.size() ; i++){
-        for(int j = 0 ; j < adjlist[i].size() ; j++){
-            cout << adjlist[i][j] << " ";
-        }
-        cout << endl;
-    }
 
-    cout << "see arr" << endl;
-    for(int x : arseq) cout << x << " ";
-    cout << endl;
-    for(int x : arref) cout << x << " ";
-    cout << endl;
-    */
     // print results
 
     sccmatrix(matrix);
