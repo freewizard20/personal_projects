@@ -19,4 +19,5 @@
 ## How to use
 
 `chmod +x setup.sh
+
 sudo ./setup.sh`
