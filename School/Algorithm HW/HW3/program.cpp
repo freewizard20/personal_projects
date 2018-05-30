@@ -6,7 +6,9 @@
 #include <stack>
 #include <algorithm>
 #include <unordered_set>
+#include <unordered_map>
 #include <queue>
+#include <map>
 
 using namespace std;
 
@@ -247,18 +249,146 @@ void scclist(vector<vector<int>> & list){
 
 void sccarray(vector<int> & ref, vector<int> & seq){
 
+
     // check time
     chrono::time_point<chrono::high_resolution_clock> start, end;
     start = chrono::high_resolution_clock::now();
+        
+    // the node stack we want to obtain
+    stack<int> vert;
+    // stack resulting by dfs
+    stack<int> tmp;
+    stack<int> buffer;
+    // visited vector
+    vector<int> visited(ref.size(),0);
+
+    // do dfs and gather terminating sequence
+    stack<int> path;
+
+    for(int i = 0; i < ref.size() ; i++){
+        if(visited[i]==0){
+            int curr=i;
+            path.push(i);
+            visited[i]=1;
+            while(path.size()!=0){
+                int flag = 0;
+                for(int j = (curr==0)?0:ref[curr-1] ; j <= ref[curr]-1;j++){
+                    if(visited[seq[j]]==0){
+                        path.push(seq[j]);
+                        flag = 1;
+                        visited[path.top()]=1;
+                        curr = path.top();
+                        break;
+                    }
+                }
+                if(flag==0){
+                    // nowhere to go!
+                    vert.push(curr);
+                    path.pop();
+                    if(path.size()!=0) curr = path.top();
+                }
+            }
+        }
+    }
+
+    cout << "here" << endl;
+
+    // fill buffer
+     vector<vector<int>> buffer2(ref.size(),vector<int>());
     
+    for(int i = 0 ; i < ref.size() ; i++){
+        for(int j = (i==0)?0:ref[i-1];j<=ref[i]-1;j++){
+            buffer2[seq[j]].push_back(i);
+        }
+    }
+  
+    // make a reverted graph
+
+    vector<int> tref(ref.size(),0);
+    vector<int> tseq(seq.size(),0);
+
+    tref[0] = buffer2[0].size();
+    int lastval;
+    for(int i = 1 ; i < buffer2.size() ; i++){
+        if(buffer2[i].size()==0){
+            tref[i]=0;
+        }else{
+            tref[i] = lastval + buffer2[i].size();
+            lastval = tref[i];
+        }
+    }
+
+    int count = 0;
+    for(int i = 0 ; i < buffer2.size() ; i++){
+        for(int j = 0 ; j < buffer2[0].size() ; j++){
+            tseq[count] = buffer2[i][j];
+            count++;
+        }
+    }
+
+    /*for(int x : tref) cout << x << " ";
+    cout << endl;
+    for(int x : tseq) cout << x << " ";
+    cout << endl;*/
+
+    cout << "trans done" << endl;
+    // do dfs on trans by vert order
+    for(int i = 0 ; i < visited.size() ; i++){
+        visited[i]=0;
+    }
+
+    vector<vector<int>> result;
+
+    while(vert.size()!=0){
+        int i = vert.top();
+        vert.pop();
+        if(visited[i]==0){
+            buffer.push(i);
+            result.push_back(vector<int>());
+            while(buffer.size()!=0){
+                int curr = buffer.top();
+                if(visited[curr]==0){
+                    result[result.size()-1].push_back(buffer.top());
+                    visited[curr]=1;
+                }
+                buffer.pop();
+                for(int j = (curr==0)?0:tref[curr-1] ; j <= tref[curr]-1 ; j++){
+                    if(visited[tseq[j]]==0){
+                        buffer.push(tseq[j]);
+                    }
+                }
+            }
+        }
+    }
+    
+    end = chrono::high_resolution_clock::now();
 
 
+    // sort and print result
+    for(int i = 0 ; i < result.size() ; i++){
+        sort(result[i].begin(),result[i].end());
+    }
+
+    sort(result.begin(),result.end(),custom);
+
+    ofstream out("out.txt");
+
+    for(int i = 0 ; i < result.size() ; i++){
+        for(int j = 0 ; j < result[i].size();j++){
+            if(j==result[i].size()-1){
+                out << (result[i][j]+1) << " " << endl;
+            }else{
+                out << (result[i][j]+1) << " " ;
+            }
+        }
+    }
+
+    out.close();
 
     // print time
-    end = chrono::high_resolution_clock::now();
     chrono::duration<double> elapsed_seconds = end - start;
     cout << elapsed_seconds.count() << "s" << endl;
-    
+
 }
 
 int main(int argc, char ** argv){
@@ -294,11 +424,15 @@ int main(int argc, char ** argv){
         else arref.push_back(0);
     }
 
+    cout << "before function" << endl;
     // print results
-
-    sccmatrix(matrix);
+    for(int x : arref) cout << x << " ";
+    cout << endl;
+    for(int x : arseq) cout << x << " ";
+    cout << endl;
+    //sccmatrix(matrix);
     //scclist(adjlist);
-    //sccarray(arref, arseq);
+    sccarray(arref, arseq);
 
     return 0;
 }
