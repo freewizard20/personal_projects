@@ -52,15 +52,17 @@ void scclist(vector<vector<int>> & list){
     vector<int> visited(list.size(),0);
 
     // do dfs and gather terminating sequence
+    unordered_map<int,int> running;
+
     for(int i = 0; i < list.size() ; i++){
         if(visited[i]==0){
             buffer.push(i);
+            running.insert(pair<int,int>(i,i));
             while(buffer.size()!=0){
                 int curr = buffer.top();
                 buffer.pop();
                 if(visited[curr]==0) {
                     visited[curr]=1;
-                    tmp.push(curr);
                     for(int j = 0 ; j < list[i].size() ; j++){
                         if(visited[list[i][j]]==0){
                             buffer.push(list[i][j]);
@@ -69,7 +71,7 @@ void scclist(vector<vector<int>> & list){
                 }
             }
 
-
+            
 
             /*unordered_set<int> checker;
             while(tmp.size()!=0){
@@ -183,10 +185,10 @@ void scclist(vector<vector<int>> & list){
     for(int i = 0 ; i < result.size() ; i++){
         for(int j = 0 ; j < result[i].size();j++){
             if(j==result[i].size()-1){
-                cout << (result[i][j]+1) << endl;
+                //cout << (result[i][j]+1) << endl;
                 out << (result[i][j]+1) << " " << endl;
             }else{
-                cout << (result[i][j]+1) << " " ;
+                //cout << (result[i][j]+1) << " " ;
                 out << (result[i][j]+1) << " " ;
             }
         }
