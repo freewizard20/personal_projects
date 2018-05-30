@@ -52,40 +52,44 @@ void scclist(vector<vector<int>> & list){
     vector<int> visited(list.size(),0);
 
     // do dfs and gather terminating sequence
-    unordered_map<int,int> running;
-
+    stack<int> path;
+    cout << list.size() << endl;
     for(int i = 0; i < list.size() ; i++){
         if(visited[i]==0){
-            buffer.push(i);
-            running.insert(pair<int,int>(i,i));
-            while(buffer.size()!=0){
-                int curr = buffer.top();
-                buffer.pop();
-                if(visited[curr]==0) {
-                    visited[curr]=1;
-                    for(int j = 0 ; j < list[i].size() ; j++){
-                        if(visited[list[i][j]]==0){
-                            buffer.push(list[i][j]);
-                        }
+            // start pathfinder from node i
+            //cout << "Fresh new start " << i << endl;
+            int curr=i;
+            path.push(i);
+            visited[i]=1;
+            while(path.size()!=0){
+                int flag = 0;
+                for(int j = 0 ; j < list[curr].size();j++){
+                    //cout << "curr " << curr <<  " checking " << list[curr][j] << endl;
+                    if(visited[list[curr][j]]==0){
+                        //cout << "moving to " << list[curr][j] << "from " << curr << endl;
+                        path.push(list[curr][j]);
+                        flag = 1;
+                        visited[path.top()]=1;
+                        curr = path.top();
+                        break;
                     }
                 }
-            }
-
-            
-
-            /*unordered_set<int> checker;
-            while(tmp.size()!=0){
-                auto it = checker.find(tmp.top());
-                if(it==checker.end()){
-                    vert.push(tmp.top());
-                    checker.insert(tmp.top());
+                if(flag==0){
+                    // nowhere to go!
+                    cout << "nowhere to go! " << curr << endl;
+                    vert.push(curr);
+                    path.pop();
+                    if(path.size()!=0) curr = path.top();
                 }
-                tmp.pop();
-            }*/
+            }
+            cout << i << " terminated" << endl;
         }
     }
-
-
+    cout << "kk " <<  vert.size() << endl;
+    /*while(vert.size()!=0){
+        cout << vert.top() << endl;
+        vert.pop();
+    }*/
 
     // fill vert buffer
     /*cout << "see tmp buffer" << endl;
@@ -100,7 +104,10 @@ void scclist(vector<vector<int>> & list){
     */
     
     /*for(int i = 0 ; i < list.size() ; i++){
-        if(visited[i]==0) filldfs(i,visited,list,vert);
+       if(visited[i]==0) {
+           cout << i << endl;
+           filldfs(i,visited,list,vert);
+        }
     }*/
     
     
@@ -136,7 +143,6 @@ void scclist(vector<vector<int>> & list){
     */
 
     // do dfs on trans by vert order
-
     for(int i = 0 ; i < visited.size() ; i++){
         visited[i]=0;
     }
@@ -165,7 +171,7 @@ void scclist(vector<vector<int>> & list){
                     }
                 }
             }
-            cout << endl;
+            //cout << endl;
         }
     }
     // print time
@@ -179,7 +185,7 @@ void scclist(vector<vector<int>> & list){
 
     sort(result.begin(),result.end(),custom);
 
-    cout << "print result" << endl;
+    //cout << "print result" << endl;
     ofstream out("out.txt");
 
     for(int i = 0 ; i < result.size() ; i++){
