@@ -4,6 +4,7 @@
 #include <ctime>
 #include <chrono>
 #include <stack>
+#include <algorithm>
 
 using namespace std;
 
@@ -103,6 +104,8 @@ void scclist(vector<vector<int>> & list){
 
     sort(result.begin(),result.end(),custom);
 
+    cout << "i was here" << endl;
+
     for(int i = 0 ; i < result.size() ; i++){
         for(int j = 0 ; j < result[i].size();j++){
             if(j==result[i].size()-1){
@@ -151,7 +154,7 @@ int main(int argc, char ** argv){
     openfile >> n;
     vector<vector<int>> matrix(n,vector<int>(n,0));
     vector<vector<int>> adjlist(n,vector<int>()); 
-    vector<int> arref(n,0);
+    vector<int> arref();
     vector<int> arseq;
 
     for(int i = 0 ; i < n ; i++){
@@ -176,7 +179,7 @@ int main(int argc, char ** argv){
     }
 
     for(int i = 0 ; i < adjlist.size() ; i++){
-        for(int j = 0 ; j < adjlist.size() ; j++){
+        for(int j = 0 ; j < adjlist[i].size() ; j++){
             cout << adjlist[i][j] << " ";
         }
         cout << endl;
