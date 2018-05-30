@@ -126,21 +126,25 @@ void scclist(vector<vector<int>> & list){
         int i = vert.top();
         vert.pop();
         if(visited[i]==0){
+            cout << "big : " << i << endl;
             buffer.push(i);
             result.push_back(vector<int>());
             while(buffer.size()!=0){
                 int curr = buffer.top();
+                cout << "curr : " << curr << " ";
                 if(visited[curr]==0){
                     result[result.size()-1].push_back(buffer.top());
                     visited[curr]=1;
                 }
                 buffer.pop();
-                for(int j = 0 ; j < trans[i].size() ; j++){
-                    if(visited[trans[i][j]]==0){
-                        buffer.push(trans[i][j]);
+                for(int j = 0 ; j < trans[curr].size() ; j++){
+                    if(visited[trans[curr][j]]==0){
+                        cout << "pushing " << trans[curr][j] << endl;
+                        buffer.push(trans[curr][j]);
                     }
                 }
             }
+            cout << endl;
         }
     }
     // print time
@@ -161,7 +165,7 @@ void scclist(vector<vector<int>> & list){
         for(int j = 0 ; j < result[i].size();j++){
             if(j==result[i].size()-1){
                 cout << (result[i][j]+1) << endl;
-                out << (result[i][j]+1) << endl;
+                out << (result[i][j]+1) << " " << endl;
             }else{
                 cout << (result[i][j]+1) << " " ;
                 out << (result[i][j]+1) << " " ;
@@ -223,7 +227,7 @@ int main(int argc, char ** argv){
         if(x!=0) arref.push_back(arseq.size());
         else arref.push_back(0);
     }
-    
+    /*
     cout << "see matrix" << endl;
     for(int i = 0 ; i < matrix.size() ; i++){
         for(int j = 0 ; j < matrix[i].size(); j++){
@@ -245,7 +249,7 @@ int main(int argc, char ** argv){
     cout << endl;
     for(int x : arref) cout << x << " ";
     cout << endl;
-
+    */
     // print results
 
     sccmatrix(matrix);
