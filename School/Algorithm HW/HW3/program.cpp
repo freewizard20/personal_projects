@@ -107,7 +107,7 @@ void sccmatrix(vector<vector<int>> & matrix){
 
     sort(result.begin(),result.end(),custom);
 
-    ofstream out("out.txt");
+    ofstream out("out1.txt");
 
     for(int i = 0 ; i < result.size() ; i++){
         for(int j = 0 ; j < result[i].size();j++){
@@ -228,7 +228,7 @@ void scclist(vector<vector<int>> & list){
 
     sort(result.begin(),result.end(),custom);
 
-    ofstream out("out.txt");
+    ofstream out("out2.txt");
 
     for(int i = 0 ; i < result.size() ; i++){
         for(int j = 0 ; j < result[i].size();j++){
@@ -329,10 +329,6 @@ void sccarray(vector<int> & ref, vector<int> & seq){
         }
     }
 
-    for(int x : tref) cout << x << " ";
-    cout << endl;
-    for(int x : tseq) cout << x << " ";
-    cout << endl;
 
     cout << "trans done" << endl;
     // do dfs on trans by vert order
@@ -376,7 +372,7 @@ void sccarray(vector<int> & ref, vector<int> & seq){
 
     sort(result.begin(),result.end(),custom);
 
-    ofstream out("out.txt");
+    ofstream out("out3.txt");
 
     for(int i = 0 ; i < result.size() ; i++){
         for(int j = 0 ; j < result[i].size();j++){
@@ -430,12 +426,8 @@ int main(int argc, char ** argv){
 
     cout << "before function" << endl;
     // print results
-    for(int x : arref) cout << x << " ";
-    cout << endl;
-    for(int x : arseq) cout << x << " ";
-    cout << endl;
-    //sccmatrix(matrix);
-    //scclist(adjlist);
+    sccmatrix(matrix);
+    scclist(adjlist);
     sccarray(arref, arseq);
 
     return 0;
