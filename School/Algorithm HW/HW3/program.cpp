@@ -55,7 +55,6 @@ void scclist(vector<vector<int>> & list){
     for(int i = 0; i < list.size() ; i++){
         if(visited[i]==0){
             buffer.push(i);
-            tmp.push(i);
             while(buffer.size()!=0){
                 int curr = buffer.top();
                 buffer.pop();
@@ -69,7 +68,10 @@ void scclist(vector<vector<int>> & list){
                     }
                 }
             }
-            unordered_set<int> checker;
+
+
+
+            /*unordered_set<int> checker;
             while(tmp.size()!=0){
                 auto it = checker.find(tmp.top());
                 if(it==checker.end()){
@@ -77,7 +79,7 @@ void scclist(vector<vector<int>> & list){
                     checker.insert(tmp.top());
                 }
                 tmp.pop();
-            }
+            }*/
         }
     }
 
