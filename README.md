@@ -53,6 +53,10 @@
 
 `git push origin master`
 
+* update changes to local
+
+`git fetch -p`
+
 ## basic markdown
 
 * h1 ~ h6
