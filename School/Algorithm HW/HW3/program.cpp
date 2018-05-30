@@ -272,15 +272,17 @@ void sccarray(vector<int> & ref, vector<int> & seq){
             visited[i]=1;
             while(path.size()!=0){
                 int flag = 0;
-                for(int j = (curr==0)?0:ref[curr-1] ; j <= ref[curr]-1;j++){
-                    if(visited[seq[j]]==0){
-                        path.push(seq[j]);
-                        flag = 1;
-                        visited[path.top()]=1;
-                        curr = path.top();
-                        break;
+                
+                    for(int j = (curr==0)?0:ref[curr-1] ; j <= ref[curr]-1;j++){
+                        if(visited[seq[j]]==0){
+                            path.push(seq[j]);
+                            flag = 1;
+                            visited[path.top()]=1;
+                            curr = path.top();
+                            break;
+                        }
                     }
-                }
+                
                 if(flag==0){
                     // nowhere to go!
                     vert.push(curr);
@@ -294,42 +296,43 @@ void sccarray(vector<int> & ref, vector<int> & seq){
     cout << "here" << endl;
 
     // fill buffer
-     vector<vector<int>> buffer2(ref.size(),vector<int>());
+    vector<vector<int>> buffer2(ref.size(),vector<int>());
     
     for(int i = 0 ; i < ref.size() ; i++){
-        for(int j = (i==0)?0:ref[i-1];j<=ref[i]-1;j++){
-            buffer2[seq[j]].push_back(i);
-        }
+            for(int j = (i==0)?0:ref[i-1];j<=ref[i]-1;j++){
+                buffer2[seq[j]].push_back(i);
+            }
+        
     }
   
+    cout << "done one " << endl;
     // make a reverted graph
 
     vector<int> tref(ref.size(),0);
     vector<int> tseq(seq.size(),0);
 
     tref[0] = buffer2[0].size();
-    int lastval;
     for(int i = 1 ; i < buffer2.size() ; i++){
-        if(buffer2[i].size()==0){
-            tref[i]=0;
-        }else{
-            tref[i] = lastval + buffer2[i].size();
-            lastval = tref[i];
-        }
+        
+            tref[i] = tref[i-1] + buffer2[i].size();
+        
     }
+
+    cout << "done two" << endl;
 
     int count = 0;
     for(int i = 0 ; i < buffer2.size() ; i++){
-        for(int j = 0 ; j < buffer2[0].size() ; j++){
+        for(int j = 0 ; j < buffer2[i].size() ; j++){
+            if(count>=seq.size()) cout << "sakk" << endl;
             tseq[count] = buffer2[i][j];
             count++;
         }
     }
 
-    /*for(int x : tref) cout << x << " ";
+    for(int x : tref) cout << x << " ";
     cout << endl;
     for(int x : tseq) cout << x << " ";
-    cout << endl;*/
+    cout << endl;
 
     cout << "trans done" << endl;
     // do dfs on trans by vert order
@@ -352,11 +355,13 @@ void sccarray(vector<int> & ref, vector<int> & seq){
                     visited[curr]=1;
                 }
                 buffer.pop();
-                for(int j = (curr==0)?0:tref[curr-1] ; j <= tref[curr]-1 ; j++){
-                    if(visited[tseq[j]]==0){
-                        buffer.push(tseq[j]);
+                
+                    for(int j = (curr==0)?0:tref[curr-1] ; j <= tref[curr]-1 ; j++){
+                        if(visited[tseq[j]]==0){
+                            buffer.push(tseq[j]);
+                        }
                     }
-                }
+                
             }
         }
     }
@@ -420,8 +425,7 @@ int main(int argc, char ** argv){
             adjlist[i].push_back(tmp);
             arseq.push_back(tmp);
         }
-        if(x!=0) arref.push_back(arseq.size());
-        else arref.push_back(0);
+        arref.push_back(arseq.size());
     }
 
     cout << "before function" << endl;
