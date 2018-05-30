@@ -16,7 +16,8 @@ bool custom(vector<int> a, vector<int> b){
     return a[0]<b[0];
 }
 
-void sccmatrix(vector<vector<int>> & matrix){
+/*** MATRIX GRAPH ***/
+chrono::duration<double> sccmatrix(vector<vector<int>> & matrix){
 
     // check time
     chrono::time_point<chrono::high_resolution_clock> start, end;
@@ -41,6 +42,7 @@ void sccmatrix(vector<vector<int>> & matrix){
             while(path.size()!=0){
                 int flag = 0;
                 for(int j = 0 ; j < matrix.size();j++){
+                    // pick a place to go
                     if(matrix[curr][j]==1&&visited[j]==0){
                         path.push(j);
                         flag = 1;
@@ -50,7 +52,7 @@ void sccmatrix(vector<vector<int>> & matrix){
                     }
                 }
                 if(flag==0){
-                    // nowhere to go!
+                    // nowhere to go! revert!
                     vert.push(curr);
                     path.pop();
                     if(path.size()!=0) curr = path.top();
@@ -113,8 +115,10 @@ void sccmatrix(vector<vector<int>> & matrix){
         for(int j = 0 ; j < result[i].size();j++){
             if(j==result[i].size()-1){
                 out << (result[i][j]+1) << " " << endl;
+                cout << (result[i][j]+1) << " " << endl;
             }else{
                 out << (result[i][j]+1) << " " ;
+                cout << (result[i][j]+1) << " ";
             }
         }
     }
@@ -123,8 +127,8 @@ void sccmatrix(vector<vector<int>> & matrix){
 
     // print time
     chrono::duration<double> elapsed_seconds = end - start;
-    cout << elapsed_seconds.count() << "s" << endl;
-
+    //cout << elapsed_seconds.count() << "s" << endl;
+    return elapsed_seconds;
 }
 
 void filldfs(int curr, vector<int> & visited, vector<vector<int>> & list, stack<int> & vert){
@@ -136,7 +140,9 @@ void filldfs(int curr, vector<int> & visited, vector<vector<int>> & list, stack<
     vert.push(curr);
 }
 
-void scclist(vector<vector<int>> & list){
+
+/*** LIST GRAPH ***/
+chrono::duration<double> scclist(vector<vector<int>> & list){
 
     // check time
     chrono::time_point<chrono::high_resolution_clock> start, end;
@@ -234,8 +240,10 @@ void scclist(vector<vector<int>> & list){
         for(int j = 0 ; j < result[i].size();j++){
             if(j==result[i].size()-1){
                 out << (result[i][j]+1) << " " << endl;
+                cout << (result[i][j]+1) << " " << endl;
             }else{
                 out << (result[i][j]+1) << " " ;
+                cout << (result[i][j]+1) << " ";
             }
         }
     }
@@ -244,10 +252,12 @@ void scclist(vector<vector<int>> & list){
 
     // print time
     chrono::duration<double> elapsed_seconds = end - start;
-    cout << elapsed_seconds.count() << "s" << endl;
+    //cout << elapsed_seconds.count() << "s" << endl;
+    return elapsed_seconds;
 }
 
-void sccarray(vector<int> & ref, vector<int> & seq){
+/*** ARRAY GRAPH ***/
+chrono::duration<double> sccarray(vector<int> & ref, vector<int> & seq){
 
 
     // check time
@@ -293,8 +303,6 @@ void sccarray(vector<int> & ref, vector<int> & seq){
         }
     }
 
-    cout << "here" << endl;
-
     // fill buffer
     vector<vector<int>> buffer2(ref.size(),vector<int>());
     
@@ -305,7 +313,6 @@ void sccarray(vector<int> & ref, vector<int> & seq){
         
     }
   
-    cout << "done one " << endl;
     // make a reverted graph
 
     vector<int> tref(ref.size(),0);
@@ -318,19 +325,15 @@ void sccarray(vector<int> & ref, vector<int> & seq){
         
     }
 
-    cout << "done two" << endl;
-
     int count = 0;
     for(int i = 0 ; i < buffer2.size() ; i++){
         for(int j = 0 ; j < buffer2[i].size() ; j++){
-            if(count>=seq.size()) cout << "sakk" << endl;
             tseq[count] = buffer2[i][j];
             count++;
         }
     }
 
 
-    cout << "trans done" << endl;
     // do dfs on trans by vert order
     for(int i = 0 ; i < visited.size() ; i++){
         visited[i]=0;
@@ -377,8 +380,10 @@ void sccarray(vector<int> & ref, vector<int> & seq){
     for(int i = 0 ; i < result.size() ; i++){
         for(int j = 0 ; j < result[i].size();j++){
             if(j==result[i].size()-1){
+                cout << (result[i][j]+1) << " " << endl;
                 out << (result[i][j]+1) << " " << endl;
             }else{
+                cout << (result[i][j]+1) << " ";
                 out << (result[i][j]+1) << " " ;
             }
         }
@@ -388,8 +393,8 @@ void sccarray(vector<int> & ref, vector<int> & seq){
 
     // print time
     chrono::duration<double> elapsed_seconds = end - start;
-    cout << elapsed_seconds.count() << "s" << endl;
-
+    //cout << elapsed_seconds.count() << "s" << endl;
+    return elapsed_seconds;
 }
 
 int main(int argc, char ** argv){
@@ -424,11 +429,17 @@ int main(int argc, char ** argv){
         arref.push_back(arseq.size());
     }
 
-    cout << "before function" << endl;
+
     // print results
-    sccmatrix(matrix);
-    scclist(adjlist);
-    sccarray(arref, arseq);
+    chrono::duration<double> elapsed_seconds1 = sccmatrix(matrix);
+    cout << "---" << endl;
+    chrono::duration<double> elapsed_seconds2 = scclist(adjlist);
+    cout << "---" << endl;
+    chrono::duration<double> elapsed_seconds3 = sccarray(arref,arseq);
+    cout << "---" << endl;
+    cout << "Matrix graph time : " << elapsed_seconds1.count() << " seconds" << endl;
+    cout << "List graph time : " << elapsed_seconds2.count() << " seconds" << endl;
+    cout << "Array graph time : " << elapsed_seconds3.count() << " seconds" << endl;
 
     return 0;
 }
