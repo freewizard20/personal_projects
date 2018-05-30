@@ -5,6 +5,8 @@
 #include <chrono>
 #include <stack>
 #include <algorithm>
+#include <unordered_set>
+#include <queue>
 
 using namespace std;
 
@@ -50,27 +52,39 @@ void scclist(vector<vector<int>> & list){
     vector<int> visited(list.size(),0);
 
     // do dfs and gather terminating sequence
-/*    for(int i = 0; i < list.size() ; i++){
+    for(int i = 0; i < list.size() ; i++){
         if(visited[i]==0){
             buffer.push(i);
+            tmp.push(i);
             while(buffer.size()!=0){
                 int curr = buffer.top();
-                if(visited[curr]==0){
-                    visited[curr]=1;
-                    tmp.push(buffer.top());
-                }
                 buffer.pop();
-                for(int j = 0 ; j < list[i].size() ; j++){
-                    if(visited[list[i][j]]==0){
-                        buffer.push(list[i][j]);
+                if(visited[curr]==0) {
+                    visited[curr]=1;
+                    tmp.push(curr);
+                    for(int j = 0 ; j < list[i].size() ; j++){
+                        if(visited[list[i][j]]==0){
+                            buffer.push(list[i][j]);
+                        }
                     }
                 }
+            }
+            unordered_set<int> checker;
+            while(tmp.size()!=0){
+                auto it = checker.find(tmp.top());
+                if(it==checker.end()){
+                    vert.push(tmp.top());
+                    checker.insert(tmp.top());
+                }
+                tmp.pop();
             }
         }
     }
 
+
+
     // fill vert buffer
-    cout << "see tmp buffer" << endl;
+    /*cout << "see tmp buffer" << endl;
 
     while(tmp.size()!=0){
         vert.push(tmp.top());
@@ -79,13 +93,14 @@ void scclist(vector<vector<int>> & list){
     }
 
     cout << endl;
-*/
-
-    for(int i = 0 ; i < list.size() ; i++){
-        if(visited[i]==0) filldfs(i,visited,list,vert);
-    }
+    */
     
-    cout << "see vert" << endl;
+    /*for(int i = 0 ; i < list.size() ; i++){
+        if(visited[i]==0) filldfs(i,visited,list,vert);
+    }*/
+    
+    
+    /*cout << "see vert" << endl;
     while(vert.size()!=0){
         tmp.push(vert.top());
         cout << vert.top() << " ";
@@ -95,7 +110,7 @@ void scclist(vector<vector<int>> & list){
     while(tmp.size()!=0){
         vert.push(tmp.top());
         tmp.pop();
-    }
+    }*/
 
     // make a reverted graph
     vector<vector<int>> trans(list.size(),vector<int>());
@@ -106,6 +121,7 @@ void scclist(vector<vector<int>> & list){
         }
     }
 
+    /*
     cout << "see trans buffer" << endl;
     for(int i = 0 ; i < trans.size() ; i++){
         for(int j = 0 ; j < trans[i].size() ; j++){
@@ -113,6 +129,7 @@ void scclist(vector<vector<int>> & list){
         }
         cout << endl;
     }
+    */
 
     // do dfs on trans by vert order
 
@@ -126,12 +143,12 @@ void scclist(vector<vector<int>> & list){
         int i = vert.top();
         vert.pop();
         if(visited[i]==0){
-            cout << "big : " << i << endl;
+            //cout << "big : " << i << endl;
             buffer.push(i);
             result.push_back(vector<int>());
             while(buffer.size()!=0){
                 int curr = buffer.top();
-                cout << "curr : " << curr << " ";
+                //cout << "curr : " << curr << " ";
                 if(visited[curr]==0){
                     result[result.size()-1].push_back(buffer.top());
                     visited[curr]=1;
@@ -139,7 +156,7 @@ void scclist(vector<vector<int>> & list){
                 buffer.pop();
                 for(int j = 0 ; j < trans[curr].size() ; j++){
                     if(visited[trans[curr][j]]==0){
-                        cout << "pushing " << trans[curr][j] << endl;
+                        //cout << "pushing " << trans[curr][j] << endl;
                         buffer.push(trans[curr][j]);
                     }
                 }
