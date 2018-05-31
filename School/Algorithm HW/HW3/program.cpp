@@ -103,7 +103,7 @@ chrono::duration<double> sccmatrix(vector<vector<int>> & matrix){
 
 
     // sort and print result
-    for(int i = 0 ; i < result.size() ; i++){
+    /*for(int i = 0 ; i < result.size() ; i++){
         sort(result[i].begin(),result[i].end());
     }
 
@@ -123,7 +123,7 @@ chrono::duration<double> sccmatrix(vector<vector<int>> & matrix){
         }
     }
 
-    out.close();
+    out.close();*/
 
     // print time
     chrono::duration<double> elapsed_seconds = end - start;
@@ -159,7 +159,6 @@ chrono::duration<double> scclist(vector<vector<int>> & list){
 
     // do dfs and gather terminating sequence
     stack<int> path;
-    cout << list.size() << endl;
     for(int i = 0; i < list.size() ; i++){
         if(visited[i]==0){
             int curr=i;
@@ -228,7 +227,7 @@ chrono::duration<double> scclist(vector<vector<int>> & list){
 
 
     // sort and print result
-    for(int i = 0 ; i < result.size() ; i++){
+    /*for(int i = 0 ; i < result.size() ; i++){
         sort(result[i].begin(),result[i].end());
     }
 
@@ -248,7 +247,7 @@ chrono::duration<double> scclist(vector<vector<int>> & list){
         }
     }
 
-    out.close();
+    out.close();*/
 
     // print time
     chrono::duration<double> elapsed_seconds = end - start;
@@ -369,7 +368,7 @@ chrono::duration<double> sccarray(vector<int> & ref, vector<int> & seq){
 
 
     // sort and print result
-    for(int i = 0 ; i < result.size() ; i++){
+    /*for(int i = 0 ; i < result.size() ; i++){
         sort(result[i].begin(),result[i].end());
     }
 
@@ -389,7 +388,7 @@ chrono::duration<double> sccarray(vector<int> & ref, vector<int> & seq){
         }
     }
 
-    out.close();
+    out.close();*/
 
     // print time
     chrono::duration<double> elapsed_seconds = end - start;
@@ -434,9 +433,9 @@ int main(int argc, char ** argv){
     chrono::duration<double> elapsed_seconds1 = sccmatrix(matrix);
     cout << "---" << endl;
     chrono::duration<double> elapsed_seconds2 = scclist(adjlist);
-    cout << "---" << endl;
+    //cout << "---" << endl;
     chrono::duration<double> elapsed_seconds3 = sccarray(arref,arseq);
-    cout << "---" << endl;
+    //cout << "---" << endl;
     cout << "Matrix graph time : " << elapsed_seconds1.count() << " seconds" << endl;
     cout << "List graph time : " << elapsed_seconds2.count() << " seconds" << endl;
     cout << "Array graph time : " << elapsed_seconds3.count() << " seconds" << endl;
