@@ -103,7 +103,7 @@ chrono::duration<double> sccmatrix(vector<vector<int>> & matrix){
 
 
     // sort and print result
-    /*for(int i = 0 ; i < result.size() ; i++){
+    for(int i = 0 ; i < result.size() ; i++){
         sort(result[i].begin(),result[i].end());
     }
 
@@ -123,7 +123,7 @@ chrono::duration<double> sccmatrix(vector<vector<int>> & matrix){
         }
     }
 
-    out.close();*/
+    out.close();
 
     // print time
     chrono::duration<double> elapsed_seconds = end - start;
@@ -227,7 +227,7 @@ chrono::duration<double> scclist(vector<vector<int>> & list){
 
 
     // sort and print result
-    /*for(int i = 0 ; i < result.size() ; i++){
+    for(int i = 0 ; i < result.size() ; i++){
         sort(result[i].begin(),result[i].end());
     }
 
@@ -247,7 +247,7 @@ chrono::duration<double> scclist(vector<vector<int>> & list){
         }
     }
 
-    out.close();*/
+    out.close();
 
     // print time
     chrono::duration<double> elapsed_seconds = end - start;
@@ -368,7 +368,7 @@ chrono::duration<double> sccarray(vector<int> & ref, vector<int> & seq){
 
 
     // sort and print result
-    /*for(int i = 0 ; i < result.size() ; i++){
+    for(int i = 0 ; i < result.size() ; i++){
         sort(result[i].begin(),result[i].end());
     }
 
@@ -388,7 +388,7 @@ chrono::duration<double> sccarray(vector<int> & ref, vector<int> & seq){
         }
     }
 
-    out.close();*/
+    out.close();
 
     // print time
     chrono::duration<double> elapsed_seconds = end - start;
