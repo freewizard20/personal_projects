@@ -47,7 +47,8 @@ int main() {
 					total.push_back(pair<int, int>(curr.second.first, curr.second.second));
 					sum += curr.first;
 					for (int i = 0; i < graph[curr.second.second].size(); i++) {
-						queue.push(pair<int, pair<int, int>>(graph[curr.second.second][i].second, pair<int, int>(curr.second.second, graph[curr.second.second][i].first)));
+						if(included[graph[curr.second.second][i].first]==0)
+							queue.push(pair<int, pair<int, int>>(graph[curr.second.second][i].second, pair<int, int>(curr.second.second, graph[curr.second.second][i].first)));
 					}
 				}
 			}
