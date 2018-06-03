@@ -4,8 +4,7 @@
 #include <cmath>
 #include <cstdio>
 #include <queue>
-
-
+#include <unordered_map>
 
 using namespace std;
 
@@ -14,15 +13,34 @@ int main() {
 	int nodes;
 	int edges;
 	scanf("%d %d", &nodes, &edges);
+	unordered_map<int, int> locator;
 	vector < vector<pair<int, int>>> graph(nodes, vector < pair<int, int>>());
+	int numbering = 0;
 	for (int i = 0; i < edges; i++) {
 		int from;
 		int to;
 		int weight;
 		scanf("%d %d %d", &from, &to, &weight);
-		from--;
-		to--;
+		auto it = locator.find(from);
+		if (it != locator.end()) {
+			from = it->second;
+		}
+		else {
+			locator.insert(pair<int, int>(from, numbering));
+			from = numbering;
+			numbering++;
+		}
+		it = locator.find(to);
+		if (it != locator.end()) {
+			to = it->second;
+		}
+		else {
+			locator.insert(pair<int, int>(to, numbering));
+			to = numbering;
+			numbering++;
+		}
 		graph[from].push_back(pair<int, int>(to, weight));
+		graph[to].push_back(pair<int, int>(from, weight));
 	}
 
 	// do prim mst
@@ -55,5 +73,4 @@ int main() {
 		}
 	}
 	cout << sum << endl;
-	while(1){}
 }
