@@ -8,7 +8,7 @@ import java.util.Vector;
 public class Subway{
     
     public static void main(String[] args){
-        // parse data
+        // parse data and make graph
         
     }
 }
@@ -16,17 +16,15 @@ public class Subway{
 class db{
     
     // data structure containing subway information
-    private Vector<Integer> ref;
-    private Vector<Integer> seq;
-    
-    public graph(Vector<Integer> r, Vector<Integer> s){
-        ref = r;
-        seq = s;
+    private Vector<Vector<Integer>> graph;
+
+    public graph(Vector<Vector<Integer>> g){
+        graph = g;
     }
     
     // shortest path
     public void goto(String from, String to){
-
+        
     }
 
     // shortest transfers
