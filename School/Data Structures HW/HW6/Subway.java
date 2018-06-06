@@ -1,5 +1,7 @@
 import java.io.IOException;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.StringTokenizer;
 import java.io.InputStreamReader;
 import java.util.Vector;
@@ -7,27 +9,52 @@ import java.util.*;
 
 public class Subway{
     
-    public static void main(String[] args){
+    public static void main(String[] args) throws FileNotFoundException, IOException {
         // parse data and make graph
-        Vector<Vector<Vector<Integer>>> graph;
-        HashMap<String,String> numtoname;
-        HashMap<String,Integer> nn;
-        HashMap<Integer,String> nn2;
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+        Vector<Vector<Vector<Integer>>> graph = new Vector<Vector<Vector<Integer>>>();
+        HashMap<String,String> numtoname = new HashMap<String,String>();
+        HashMap<String,Integer> nametograph = new HashMap<String,Integer>();
+        HashMap<String,Integer> numtograph = new HashMap<String,Integer>();
+        HashMap<Integer,String> graphtonum = new HashMap<Integer,String>();
+        HashMap<Integer,String> graphtoname = new HashMap<Integer,String>();
+        HashMap<String, Vector<String>> transfer = new HashMap<String,Vector<String>>();
+        HashMap<String, Integer> transfernode = new HashMap<String,Integer>();
+        HashMap<String, String> names = new HashMap<String,String>();
+        BufferedReader br = new BufferedReader(new FileReader(args[0]));
+        int count;
         // map nodes to graph
         while(true){
+
             StringTokenizer st = new StringTokenizer(br.readLine());
+            count=0;
+
             // all nodes read. Break.
-            int count=0;
-            if(st.size()==0) break;
+            if(!st.hasMoreTokens()) break;
+
+            // add new node
             String num = st.nextToken();
             String name = st.nextToken();
-            numtoname.add(num,name);
-            nn.add(num,count);
-            nn2.add(count,num);
+            numtoname.put(num,name);
+            numtograph.put(num,count);
+            nametograph.put(name,count);
+            graphtonum.put(count,num);
+            graphtoname.put(count,name);
             count++;
             graph.add(new Vector<Vector<Integer>>());
+
+            // if same name found, mark as transfer
+            if(names.get(name)!=null){
+                if(transfer.get(name)==null){
+                    transfer.put(name,new Vector<String>());
+                    transfer.get(name).addElement(names.get(name));
+                    transfer.get(name).addElement(num);
+                }else{
+                    transfer.get(name).addElement(num);
+                }
+            }else{
+                names.put(name,num);
+            }
+
         }
 
         // add edges to graph
@@ -39,16 +66,54 @@ public class Subway{
             String to = st.nextToken();
             int dist = Integer.parseInt(st.nextToken());
             Vector<Integer> edge = new Vector<Integer>();
-            edge.add(nn.get(to));
+            edge.add(numtograph.get(to));
             edge.add(dist);
-            graph.get(nn.get(from)).addElement(edge);
+            graph.get(numtograph.get(from)).addElement(edge);
         }
 
         // add bridge nodes and edges
+        Set entrySet = transfer.entrySet();
+        Iterator it = entrySet.iterator();
+        while(it.hasNext()){
+            Map.Entry me = (Map.Entry) it.next();
+            Vector<Integer> come = (Vector<Integer>) me.getValue();
+            graphtoname.put(count,(String)me.getKey());
+            transfernode.put((String) me.getKey(),count);
+            // make new transfer bridge node
+            graph.addElement(new Vector<Vector<Integer>>());
 
+            // add edges with transfer bridge node
+            for(int i = 0 ; i < come.size() ; i++){
+                Vector<Integer> tmp = new Vector<Integer>();
+                tmp.addElement(numtograph.get(come.get(i)));
+                tmp.addElement(2);
+                graph.get(count).addElement(tmp);
+                tmp = new Vector<Integer>();
+                tmp.addElement(count);
+                tmp.addElement(3);
+                graph.get(numtograph.get(come.get(i))).addElement(tmp);
+            }
+            count++;
+        }
         
         // initialize graph
-        db test = new db(graph,
+        db test = new db(graph,graphtoname, transfernode,nametograph);
+
+        // Do console work
+        br = new BufferedReader(new InputStreamReader(System.in));
+
+        while(true){
+            String curr = br.readLine();
+            if(curr.equals("QUIT")) break;
+            StringTokenizer st = new StringTokenizer(curr);
+            String f = st.nextToken();
+            String t = st.nextToken();
+            if(!st.hasMoreTokens()){
+                test.spath(f,t);
+            }else{
+                test.spath2(f,t);
+            }
+        }
     }
 }
 
@@ -56,22 +121,247 @@ class db{
     
     // data structure containing subway information
     private Vector<Vector<Vector<Integer>>> graph;
-    private HashMap<String,String> numtoname;
-    private HashMap<String,String> nametonum;
+    private HashMap<Integer,String> graphtoname;
+    private HashMap<String,Integer> transfernode;
+    private HashMap<String,Integer> nametograph;
 
-    public graph(Vector<Vector<Vector<Integer>>> g, HashMap<String,String> n, HashMap<String,String> s){
+    public db(Vector<Vector<Vector<Integer>>> g, HashMap<Integer,String> t, HashMap<String,Integer> m, HashMap<String,Integer> n){
         graph = g;
-        numtoname = n;
-        nametonum = s;
+        graphtoname = t;
+        transfernode = m;
+        nametograph = n;
     }
     
     // shortest path
     public void spath(String from, String to){
-        
+        // initialize dist array
+        int[] dist = new int[graph.size()];
+        int[] prev = new int[graph.size()];
+        for(int i = 0 ; i < dist.length ; i++) {
+            dist[i] = 999999999;
+            prev[i] = 999999999;
+        }
+
+        // check if start or end is transfer station
+        int tsflag = 0;
+        int tfflag = 0;
+        int start,end;
+        if(transfernode.get(from)!=null){
+            tsflag = 1;
+            start = transfernode.get(from);
+        }else{
+            start = nametograph.get(from);
+        }
+        if(transfernode.get(to)!=null){
+            tfflag = 1;
+            end = transfernode.get(to);
+        }else{
+            end = nametograph.get(to);
+        }
+
+        // do dijkstra
+        dist[start] = 0;
+        Queue<Vector<Integer>> pq = new PriorityQueue<Vector<Integer>>(mycomp);
+        Vector<Integer> curr = new Vector<Integer>();
+        curr.add(0);
+        curr.add(start);
+        pq.add(curr);
+        while(pq.size()!=0){
+            curr = pq.poll();
+            int at = curr.get(1);
+            if(dist[at] < curr.get(0)) continue;
+            for(int i = 0 ; i < graph.get(at).size() ; i++){
+                if(dist[graph.get(at).get(i).get(0)]>dist[at]+graph.get(at).get(i).get(1)){
+                    dist[graph.get(at).get(i).get(0)] = dist[at]+graph.get(at).get(i).get(1);
+                    prev[graph.get(at).get(i).get(0)] = at;
+                    curr = new Vector<Integer>();
+                    curr.addElement(dist[graph.get(at).get(i).get(0)]);
+                    curr.addElement(graph.get(at).get(i).get(0));
+                    pq.add(curr);
+                }
+            }
+        }
+
+        // calculate min time and route
+        if(dist[end]==99999999){
+            System.out.println("ROUTE NOT FOUND");
+            return;
+        }
+
+        int time = dist[end];
+        if(tfflag==1) time-=3;
+        if(tsflag==1) time-=2;
+
+        // check if transfer, add flag then remove. reconstuct print string then print it.
+        int flag = 0;
+        String c="";
+        int x = end;
+        String res = "";
+        if(tfflag==1){
+            x = prev[x];
+            res = to;
+        }
+        Vector<String> quark = new Vector<String>();
+        while(graphtoname.get(x)!=from){
+            if(!c.equals(graphtoname.get(x))){
+                flag = 0;
+            }
+            if(flag==1){
+                x = prev[x];
+                continue;
+            }
+            if(tsflag==1&&graphtoname.get(x).equals(from)){
+                quark.addElement(graphtoname.get(x));
+                break;
+            }
+            if(transfernode.get(graphtoname.get(x))!=null){
+                if(flag==0){
+                    quark.addElement("["+graphtoname.get(x)+"]");
+                    flag=1;
+                    c = graphtoname.get(x);
+                }
+            }else{
+                quark.addElement(graphtoname.get(x));
+            }
+            x = prev[x];
+        }
+
+        // print result
+        for(int i = quark.size()-1 ; i>=0 ; i--){
+            if(i!=0) System.out.print(quark.get(i)+" ");
+            else System.out.println(quark.get(0));
+        }
+        System.out.println(time);
+
     }
+
+
+    // Distance comparitor function for priority queue
+    public static Comparator<Vector<Integer>> mycomp = new Comparator<Vector<Integer>>(){
+        @Override
+        public int compare(Vector<Integer> a1, Vector<Integer> a2){
+            if(a1.get(0)<a2.get(0)){
+                return -1;
+            }else if(a1.get(0)>a2.get(0)){
+                return 1;
+            }else{
+                if(a1.get(1)<a2.get(1)){
+                    return -1;
+                }else{
+                    return 1;
+                }
+            }
+        }
+    };
 
     // shortest transfers
     public void spath2(String from, String to){
+        // initialize dist array
+        int[][] dist = new int[graph.size()][2];
+        int[] prev = new int[graph.size()];
+        for(int i = 0 ; i < dist.length ; i++) {
+            dist[i][0] = 0;
+            dist[i][1] = 999999999;
+            prev[i] = 999999999;
+        }
+
+        // check if start or end is transfer station
+        int tsflag = 0;
+        int tfflag = 0;
+        int start,end;
+        if(transfernode.get(from)!=null){
+            tsflag = 1;
+            start = transfernode.get(from);
+        }else{
+            start = nametograph.get(from);
+        }
+        if(transfernode.get(to)!=null){
+            tfflag = 1;
+            end = transfernode.get(to);
+        }else{
+            end = nametograph.get(to);
+        }
+
+        // do dijkstra
+        dist[start][0] = 0;
+        dist[start][1] = 0;
+        Queue<Vector<Integer>> pq = new PriorityQueue<Vector<Integer>>(mycomp);
+        Vector<Integer> curr = new Vector<Integer>();
+        curr.add(0);
+        curr.add(0);
+        curr.add(start);
+        pq.add(curr);
+        while(pq.size()!=0){
+            curr = pq.poll();
+            int at = curr.get(2);
+            if(dist[at][0]<curr.get(0)) continue;
+            else if(dist[at][0]==curr.get(0) && dist[at][1]<curr.get(1)) continue;
+            for(int i = 0 ; i < graph.get(at).size() ; i++){
+                if((dist[graph.get(at).get(i).get(0)][0]>curr.get(0))||((dist[graph.get(at).get(i).get(0)][0]==curr.get(0))&&(dist[graph.get(at).get(i).get(0)][1]>dist[at][1]+graph.get(at).get(i).get(1)))){
+                    if(transfernode.get(graph.get(at).get(i).get(0))!=null){
+                        dist[graph.get(at).get(i).get(0)][0] = dist[at][0]+1;
+                    }
+                    dist[graph.get(at).get(i).get(0)][1] = dist[at][1]+graph.get(at).get(i).get(1);
+                    prev[graph.get(at).get(i).get(0)] = at;
+                    curr = new Vector<Integer>();
+                    curr.addElement(dist[graph.get(at).get(i).get(0)][0]);
+                    curr.addElement(dist[graph.get(at).get(i).get(0)][1]);
+                    curr.addElement(graph.get(at).get(i).get(0));
+                    pq.add(curr);
+                }
+            }
+        }
+
+        // calculate min time and route
+        if(dist[end][1]==99999999){
+            System.out.println("ROUTE NOT FOUND");
+            return;
+        }
+
+        int time = dist[end][1];
+        if(tfflag==1) time-=3;
+        if(tsflag==1) time-=2;
+
+        // check if transfer, add flag then remove. reconstuct print string then print it.
+        int flag = 0;
+        String c="";
+        int x = end;
+        String res = "";
+        if(tfflag==1){
+            x = prev[x];
+            res = to;
+        }
+        Vector<String> quark = new Vector<String>();
+        while(graphtoname.get(x)!=from){
+            if(!c.equals(graphtoname.get(x))){
+                flag = 0;
+            }
+            if(flag==1){
+                x = prev[x];
+                continue;
+            }
+            if(tsflag==1&&graphtoname.get(x).equals(from)){
+                quark.addElement(graphtoname.get(x));
+                break;
+            }
+            if(transfernode.get(graphtoname.get(x))!=null){
+                if(flag==0){
+                    quark.addElement("["+graphtoname.get(x)+"]");
+                    flag=1;
+                    c = graphtoname.get(x);
+                }
+            }else{
+                quark.addElement(graphtoname.get(x));
+            }
+            x = prev[x];
+        }
+
+        // print result
+        for(int i = quark.size()-1 ; i>=0 ; i--){
+            if(i!=0) System.out.print(quark.get(i)+" ");
+            else System.out.println(quark.get(0));
+        }
+        System.out.println(time);
 
     }
     
