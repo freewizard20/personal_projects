@@ -6,6 +6,7 @@ import java.util.StringTokenizer;
 import java.io.InputStreamReader;
 import java.util.Vector;
 import java.util.*;
+import java.io.*;
 
 public class Subway{
     
@@ -20,13 +21,12 @@ public class Subway{
         HashMap<String, Vector<String>> transfer = new HashMap<String,Vector<String>>();
         HashMap<String, Integer> transfernode = new HashMap<String,Integer>();
         HashMap<String, String> names = new HashMap<String,String>();
-        BufferedReader br = new BufferedReader(new FileReader(args[0]));
-        int count;
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(args[0]),"UTF8"));
+        int count=0;
         // map nodes to graph
         while(true){
 
             StringTokenizer st = new StringTokenizer(br.readLine());
-            count=0;
 
             // all nodes read. Break.
             if(!st.hasMoreTokens()) break;
@@ -34,6 +34,7 @@ public class Subway{
             // add new node
             String num = st.nextToken();
             String name = st.nextToken();
+
             numtoname.put(num,name);
             numtograph.put(num,count);
             nametograph.put(name,count);
@@ -61,6 +62,7 @@ public class Subway{
         while(true){
             String curr = br.readLine();
             if(curr==null) break;
+
             StringTokenizer st = new StringTokenizer(curr);
             String from = st.nextToken();
             String to = st.nextToken();
@@ -111,6 +113,7 @@ public class Subway{
             if(!st.hasMoreTokens()){
                 test.spath(f,t);
             }else{
+                st.nextToken();
                 test.spath2(f,t);
             }
         }
@@ -202,7 +205,8 @@ class db{
             res = to;
         }
         Vector<String> quark = new Vector<String>();
-        while(graphtoname.get(x)!=from){
+        while(true){
+
             if(!c.equals(graphtoname.get(x))){
                 flag = 0;
             }
@@ -214,7 +218,7 @@ class db{
                 quark.addElement(graphtoname.get(x));
                 break;
             }
-            if(transfernode.get(graphtoname.get(x))!=null){
+            if(transfernode.get(graphtoname.get(x))!=null&&graphtoname.get(x).equals(graphtoname.get(prev[x]))){
                 if(flag==0){
                     quark.addElement("["+graphtoname.get(x)+"]");
                     flag=1;
@@ -223,6 +227,7 @@ class db{
             }else{
                 quark.addElement(graphtoname.get(x));
             }
+            if(graphtoname.get(x).equals(from)) break;
             x = prev[x];
         }
 
@@ -332,7 +337,7 @@ class db{
             res = to;
         }
         Vector<String> quark = new Vector<String>();
-        while(graphtoname.get(x)!=from){
+        while(true){
             if(!c.equals(graphtoname.get(x))){
                 flag = 0;
             }
@@ -344,7 +349,7 @@ class db{
                 quark.addElement(graphtoname.get(x));
                 break;
             }
-            if(transfernode.get(graphtoname.get(x))!=null){
+            if(transfernode.get(graphtoname.get(x))!=null&&graphtoname.get(x).equals(graphtoname.get(prev[x]))){
                 if(flag==0){
                     quark.addElement("["+graphtoname.get(x)+"]");
                     flag=1;
@@ -353,7 +358,10 @@ class db{
             }else{
                 quark.addElement(graphtoname.get(x));
             }
+
+            if(graphtoname.get(x).equals(from)) break;
             x = prev[x];
+
         }
 
         // print result
