@@ -297,21 +297,16 @@ class db{
         curr.add(0);
         curr.add(start);
         pq.add(curr);
+        HashMap<Integer,Integer> tmp = new HashMap<Integer,Integer>();
         while(pq.size()!=0){
             curr = pq.poll();
-            System.out.println("curr : " + curr.get(2)+" "+graphtoname.get(curr.get(2)));
-            System.out.println("transfers : " + dist[curr.get(2)][0]+" dist : "+dist[curr.get(2)][1]);
             int at = curr.get(2);
             if(dist[at][0]<curr.get(0)||(dist[at][0]==curr.get(0) && dist[at][1]<curr.get(1))) {
-                System.out.println("skipping at " + graphtoname.get(at));
                 continue;
             }
             for(int i = 0 ; i < graph.get(at).size() ; i++){
-                System.out.println("transfers : " + dist[graph.get(at).get(i).get(0)][0]+" dist : "+dist[graph.get(at).get(i).get(0)][1]);
                 if((dist[graph.get(at).get(i).get(0)][0]>curr.get(0))||((dist[graph.get(at).get(i).get(0)][0]==curr.get(0))&&(dist[graph.get(at).get(i).get(0)][1]>dist[at][1]+graph.get(at).get(i).get(1)))){
-                    System.out.println("updating " + graphtoname.get(graph.get(at).get(i).get(0))+ " " + graph.get(at).get(i).get(0));
-                    if(transfernode.get(graphtoname.get(graph.get(at).get(i).get(0)))!=null&&graphtoname.get(at).equals(graphtoname.get(graph.get(at).get(i).get(0)))){
-                        System.out.println("transfering "+ graphtoname.get(graph.get(at).get(i).get(0)));
+                    if((transfernode.get(graphtoname.get(graph.get(at).get(i).get(0)))!=null)&&(transfernode.get(graphtoname.get(at))!=null)&&(transfernode.get(graphtoname.get(at)).equals(new Integer(at)))){
                         dist[graph.get(at).get(i).get(0)][0] = dist[at][0]+1;
                     }else{
                         dist[graph.get(at).get(i).get(0)][0] = dist[at][0];
@@ -323,8 +318,6 @@ class db{
                     curr.addElement(dist[graph.get(at).get(i).get(0)][1]);
                     curr.addElement(graph.get(at).get(i).get(0));
                     pq.add(curr);
-                }else{
-                    System.out.println("passing " + graphtoname.get(graph.get(at).get(i).get(0))+ " " + graph.get(at).get(i).get(0));
                 }
             }
         }
