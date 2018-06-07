@@ -41,28 +41,13 @@ int main(int argc, char ** argv){
     }
     out << endl;
 
-    // make random edges
+    // make edges
     set<pair<int,int>> tmp;
-
-    for(int i = 0 ; i < total*total/4;i++){
-        int from,to;
-        int count = 0;
-        do{
-        count++;
-        from = rand()%total;
-        to = rand()%total;
-        if(from>to){
-            int tmp = from;
-            from = to;
-            to = tmp;
-        }
-        }while((count<100)&&(graph.find(from)->second==graph.find(to)->second)||(from==to)||(tmp.find(pair<int,int>(from,to))!=tmp.end()));
-        if(count==100) break;
-        if(rand()%10<8){
-            out << from << " " << to << " " << (rand()*rand())%weight << endl;
-            out << to << " " << from << " " << (rand()*rand())%weight << endl;
-        }else{
-            out << from << " " << to << " " << (rand()*rand())%weight << endl;
+    int x = 0;
+    for(int i = 0 ; i < total-1;i++){
+            out << i << " " << i+1 << " " << rand()*rand()%weight << endl;
+        if(rand()%10>1){
+            out << i+1 << " " << i << " " << rand()*rand()%weight << endl;
         }
     }
 
