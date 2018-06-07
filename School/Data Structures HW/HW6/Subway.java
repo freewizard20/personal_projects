@@ -78,9 +78,10 @@ public class Subway{
         Iterator it = entrySet.iterator();
         while(it.hasNext()){
             Map.Entry me = (Map.Entry) it.next();
-            Vector<Integer> come = (Vector<Integer>) me.getValue();
+            Vector<String> come = (Vector<String>) me.getValue();
             graphtoname.put(count,(String)me.getKey());
             transfernode.put((String) me.getKey(),count);
+            
             // make new transfer bridge node
             graph.addElement(new Vector<Vector<Integer>>());
 
@@ -265,7 +266,7 @@ class db{
         int[][] dist = new int[graph.size()][2];
         int[] prev = new int[graph.size()];
         for(int i = 0 ; i < dist.length ; i++) {
-            dist[i][0] = 0;
+            dist[i][0] = 999999999;
             dist[i][1] = 999999999;
             prev[i] = 999999999;
         }
@@ -298,13 +299,22 @@ class db{
         pq.add(curr);
         while(pq.size()!=0){
             curr = pq.poll();
+            System.out.println("curr : " + curr.get(2)+" "+graphtoname.get(curr.get(2)));
+            System.out.println("transfers : " + dist[curr.get(2)][0]+" dist : "+dist[curr.get(2)][1]);
             int at = curr.get(2);
-            if(dist[at][0]<curr.get(0)) continue;
-            else if(dist[at][0]==curr.get(0) && dist[at][1]<curr.get(1)) continue;
+            if(dist[at][0]<curr.get(0)||(dist[at][0]==curr.get(0) && dist[at][1]<curr.get(1))) {
+                System.out.println("skipping at " + graphtoname.get(at));
+                continue;
+            }
             for(int i = 0 ; i < graph.get(at).size() ; i++){
+                System.out.println("transfers : " + dist[graph.get(at).get(i).get(0)][0]+" dist : "+dist[graph.get(at).get(i).get(0)][1]);
                 if((dist[graph.get(at).get(i).get(0)][0]>curr.get(0))||((dist[graph.get(at).get(i).get(0)][0]==curr.get(0))&&(dist[graph.get(at).get(i).get(0)][1]>dist[at][1]+graph.get(at).get(i).get(1)))){
-                    if(transfernode.get(graph.get(at).get(i).get(0))!=null){
+                    System.out.println("updating " + graphtoname.get(graph.get(at).get(i).get(0))+ " " + graph.get(at).get(i).get(0));
+                    if(transfernode.get(graphtoname.get(graph.get(at).get(i).get(0)))!=null&&graphtoname.get(at).equals(graphtoname.get(graph.get(at).get(i).get(0)))){
+                        System.out.println("transfering "+ graphtoname.get(graph.get(at).get(i).get(0)));
                         dist[graph.get(at).get(i).get(0)][0] = dist[at][0]+1;
+                    }else{
+                        dist[graph.get(at).get(i).get(0)][0] = dist[at][0];
                     }
                     dist[graph.get(at).get(i).get(0)][1] = dist[at][1]+graph.get(at).get(i).get(1);
                     prev[graph.get(at).get(i).get(0)] = at;
@@ -313,12 +323,14 @@ class db{
                     curr.addElement(dist[graph.get(at).get(i).get(0)][1]);
                     curr.addElement(graph.get(at).get(i).get(0));
                     pq.add(curr);
+                }else{
+                    System.out.println("passing " + graphtoname.get(graph.get(at).get(i).get(0))+ " " + graph.get(at).get(i).get(0));
                 }
             }
         }
 
         // calculate min time and route
-        if(dist[end][1]==99999999){
+        if(dist[end][1]==999999999){
             System.out.println("ROUTE NOT FOUND");
             return;
         }
@@ -326,7 +338,6 @@ class db{
         int time = dist[end][1];
         if(tfflag==1) time-=3;
         if(tsflag==1) time-=2;
-
         // check if transfer, add flag then remove. reconstuct print string then print it.
         int flag = 0;
         String c="";
@@ -358,7 +369,7 @@ class db{
             }else{
                 quark.addElement(graphtoname.get(x));
             }
-
+            //System.out.println(x + " " + graphtoname.get(x));
             if(graphtoname.get(x).equals(from)) break;
             x = prev[x];
 
