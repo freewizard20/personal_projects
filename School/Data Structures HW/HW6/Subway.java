@@ -10,7 +10,7 @@ import java.io.*;
 
 public class Subway{
     
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void main(String[] args) throws FileNotFoundException, IOException,UnsupportedEncodingException {
         // parse data and make graph
         Vector<Vector<Vector<Integer>>> graph = new Vector<Vector<Vector<Integer>>>();
         HashMap<String,String> numtoname = new HashMap<String,String>();
@@ -137,7 +137,12 @@ class db{
     }
     
     // shortest path
-    public void spath(String from, String to){
+    public void spath(String from, String to) throws UnsupportedEncodingException{
+        if(from.equals(to)){
+            System.out.println(from);
+            System.out.println(0);
+            return;
+        }
         // initialize dist array
         int[] dist = new int[graph.size()];
         int[] prev = new int[graph.size()];
@@ -261,7 +266,12 @@ class db{
     };
 
     // shortest transfers
-    public void spath2(String from, String to){
+    public void spath2(String from, String to) throws UnsupportedEncodingException{
+        if(from.equals(to)){
+            System.out.println(from);
+            System.out.println(0);
+            return;
+        }
         // initialize dist array
         int[][] dist = new int[graph.size()][2];
         int[] prev = new int[graph.size()];

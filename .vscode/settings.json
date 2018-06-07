@@ -3,6 +3,9 @@
         "chrono": "cpp",
         "xlocale": "cpp",
         "xiosbase": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "string": "cpp",
+        "cstdlib": "cpp",
+        "ostream": "cpp"
     }
 }
