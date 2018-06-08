@@ -180,12 +180,13 @@ class db{
             int at = curr.get(1);
             if(dist[at] < curr.get(0)) continue;
             for(int i = 0 ; i < graph.get(at).size() ; i++){
-                if(dist[graph.get(at).get(i).get(0)]>dist[at]+graph.get(at).get(i).get(1)){
-                    dist[graph.get(at).get(i).get(0)] = dist[at]+graph.get(at).get(i).get(1);
-                    prev[graph.get(at).get(i).get(0)] = at;
+                Vector<Integer> tmp = graph.get(at).get(i);
+                if(dist[tmp.get(0)]>dist[at]+tmp.get(1)){
+                    dist[tmp.get(0)] = dist[at]+tmp.get(1);
+                    prev[tmp.get(0)] = at;
                     curr = new Vector<Integer>();
-                    curr.addElement(dist[graph.get(at).get(i).get(0)]);
-                    curr.addElement(graph.get(at).get(i).get(0));
+                    curr.addElement(dist[tmp.get(0)]);
+                    curr.addElement(tmp.get(0));
                     pq.add(curr);
                 }
             }
@@ -315,18 +316,19 @@ class db{
                 continue;
             }
             for(int i = 0 ; i < graph.get(at).size() ; i++){
-                if((dist[graph.get(at).get(i).get(0)][0]>curr.get(0))||((dist[graph.get(at).get(i).get(0)][0]==curr.get(0))&&(dist[graph.get(at).get(i).get(0)][1]>dist[at][1]+graph.get(at).get(i).get(1)))){
-                    if((transfernode.get(graphtoname.get(graph.get(at).get(i).get(0)))!=null)&&(transfernode.get(graphtoname.get(at))!=null)&&(transfernode.get(graphtoname.get(at)).equals(new Integer(at)))){
-                        dist[graph.get(at).get(i).get(0)][0] = dist[at][0]+1;
+                Vector<Integer> zet = graph.get(at).get(i);
+                if((dist[zet.get(0)][0]>curr.get(0))||((dist[zet.get(0)][0]==curr.get(0))&&(dist[zet.get(0)][1]>dist[at][1]+zet.get(1)))){
+                    if((transfernode.get(graphtoname.get(zet.get(0)))!=null)&&(transfernode.get(graphtoname.get(at))!=null)&&(transfernode.get(graphtoname.get(at)).equals(new Integer(at)))){
+                        dist[zet.get(0)][0] = dist[at][0]+1;
                     }else{
-                        dist[graph.get(at).get(i).get(0)][0] = dist[at][0];
+                        dist[zet.get(0)][0] = dist[at][0];
                     }
-                    dist[graph.get(at).get(i).get(0)][1] = dist[at][1]+graph.get(at).get(i).get(1);
-                    prev[graph.get(at).get(i).get(0)] = at;
+                    dist[zet.get(0)][1] = dist[at][1]+zet.get(1);
+                    prev[zet.get(0)] = at;
                     curr = new Vector<Integer>();
-                    curr.addElement(dist[graph.get(at).get(i).get(0)][0]);
-                    curr.addElement(dist[graph.get(at).get(i).get(0)][1]);
-                    curr.addElement(graph.get(at).get(i).get(0));
+                    curr.addElement(dist[zet.get(0)][0]);
+                    curr.addElement(dist[zet.get(0)][1]);
+                    curr.addElement(zet.get(0));
                     pq.add(curr);
                 }
             }
