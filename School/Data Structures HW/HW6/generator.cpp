@@ -83,7 +83,7 @@ int main(int argc, char ** argv){
     for(int i = 0 ; i < nodes.size() ; i++){
         for(int j = 0 ; j < nodes[i].size()-1 ; j++){
             out << nodes[i][j][0] << " " << nodes[i][j+1][0] << " " << (rand()*rand())%weight << endl;
-            if(rand()%10<8) out << nodes[i][j+1][0] << " " << nodes[i][j][0] << " " << (rand()*rand())%weight << endl;
+            out << nodes[i][j+1][0] << " " << nodes[i][j][0] << " " << (rand()*rand())%weight << endl;
         }
     }
 
