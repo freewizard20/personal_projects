@@ -233,6 +233,10 @@ class db{
             }else{
                 quark.addElement(graphtoname.get(x));
             }
+            if(x==999999999){
+                System.out.println("ouch");
+                break;
+            }
             if(graphtoname.get(x).equals(from)) break;
             x = prev[x];
         }
