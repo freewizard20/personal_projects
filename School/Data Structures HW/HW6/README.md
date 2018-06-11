@@ -11,12 +11,16 @@
 ## Program explanation
 
 * Subway.java : 지하철(그래프) 환승을 고려한 최단거리를 찾는 프로그램입니다.
-* generator.cpp : Subway 프로그램을 검증하기 위해 테스트 데이터 셋을 생성하는 프로그램입니다.
-    `./gen {{outfile name}} {{total nodes}} {{total names}} {{max weight}}`
+* generator.cpp : Subway 프로그램을 검증하기 위해 테스트 데이터 셋을 생성하는 프로그램입니다. 콘솔에 출력되는 수는 랜덤 생성에 따른 서로 다른 이름의 갯수입니다.
+
+    `./gen {{outfile name}} {{total nodes}} {{total transfer stations}} {{max weight}}`
+
     `./gen out.txt 3000 1000 5`
-* generator2.cpp : Subway 프로그램을 검증하기 위해 인스트럭션을 생성하는 프로그램입니다.
+
+* generator2.cpp : Subway 프로그램을 검증하기 위해 인스트럭션을 생성하는 프로그램입니다. generator 프로그램의 콘솔에 적힌 이름 숫자를 적어야 충돌 없는 테스트 데이터를 얻습니다.
     `./inst {{outfile name}} {{number of instructions}} {{number of total names}}`
-    `./inst inst.txt 50 1000`
+
+    `./inst inst.txt 500 8092`
 
 ## Program Compilation & Run
 

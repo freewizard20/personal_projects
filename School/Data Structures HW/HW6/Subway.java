@@ -312,14 +312,26 @@ class db{
         while(pq.size()!=0){
             curr = pq.poll();
             int at = curr.get(2);
+            //System.out.println("curr : " + graphtoname.get(curr.get(2)) + " " + curr.get(2) + " " + curr.get(0) + " " + curr.get(1));
             if(dist[at][0]<curr.get(0)||(dist[at][0]==curr.get(0) && dist[at][1]<curr.get(1))) {
                 continue;
             }
             for(int i = 0 ; i < graph.get(at).size() ; i++){
                 Vector<Integer> zet = graph.get(at).get(i);
+                //System.out.println("looking at : " + graphtoname.get(zet.get(0))+ " " + zet.get(0)  + " " + dist[zet.get(0)][0] + " " + dist[zet.get(0)][1]);
                 if((dist[zet.get(0)][0]>curr.get(0))||((dist[zet.get(0)][0]==curr.get(0))&&(dist[zet.get(0)][1]>dist[at][1]+zet.get(1)))){
                     if((transfernode.get(graphtoname.get(zet.get(0)))!=null)&&(transfernode.get(graphtoname.get(at))!=null)&&(transfernode.get(graphtoname.get(at)).equals(new Integer(at)))){
                         dist[zet.get(0)][0] = dist[at][0]+1;
+                        // add all adj nodes of this once again to queue.
+                        for(int j = 0 ; j < graph.get(zet.get(0)).size();j++){
+                            if(graph.get(zet.get(0)).get(j).get(0)!=at){
+                                curr = new Vector<Integer>();
+                                curr.addElement(dist[graph.get(zet.get(0)).get(j).get(0)][0]);
+                                curr.addElement(dist[graph.get(zet.get(0)).get(j).get(0)][1]);
+                                curr.addElement(graph.get(zet.get(0)).get(j).get(0));
+                                pq.add(curr);
+                            }
+                        }
                     }else{
                         dist[zet.get(0)][0] = dist[at][0];
                     }
@@ -330,6 +342,9 @@ class db{
                     curr.addElement(dist[zet.get(0)][1]);
                     curr.addElement(zet.get(0));
                     pq.add(curr);
+                    //System.out.println("updated this to : " + graphtoname.get(zet.get(0))+ " " + zet.get(0)  + " " + dist[zet.get(0)][0] + " " + dist[zet.get(0)][1]);
+                }else{
+                    //System.out.println("just passing : " + graphtoname.get(zet.get(0))+ " " + zet.get(0)  + " " + dist[zet.get(0)][0] + " " + dist[zet.get(0)][1]);
                 }
             }
         }
