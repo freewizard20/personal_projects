@@ -1,5 +1,4 @@
 ## GAN
-> Forked from [GAN-tensorflow](https://github.com/ckmarkoh/GAN-tensorflow)
 
 Implementation of [Generative Adversarial Networks](https://arxiv.org/abs/1406.2661) by Tensorflow, 
 with [phd08](https://www.dropbox.com/s/69cwkkqt4m1xl55/phd08.alz?dl=0)
