@@ -10,4 +10,4 @@
 
 ## Learning material from
 
-    [Movement Research Lab](http://mrl.snu.ac.kr/courses/CourseGraphics/index_2018spring.html)
+[Movement Research Lab](http://mrl.snu.ac.kr/courses/CourseGraphics/index_2018spring.html)
