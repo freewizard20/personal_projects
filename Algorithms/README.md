@@ -10,9 +10,9 @@ these code may not run. try :
   
 * for java programs(on windows. for linux, no need for encoding/classpath flags)
 
-` javac {{java file name}} -encoding UTF8
+` javac {{java file name}} -encoding UTF8`
 
-java -classpath . {{Main class name}}`
+`java -classpath . {{Main class name}}`
 
 ## Practice sources
 
@@ -26,3 +26,6 @@ java -classpath . {{Main class name}}`
 ## Postscript : 
 
 **I do hand coding;** *Many more problems solved on whiteboards, many more solved on paper. Hand coding gives you fundamental strength on programming*
+
+![ex1](./ex1.jpg)
+![ex2](./ex2.jpg)
