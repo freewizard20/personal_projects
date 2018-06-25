@@ -14,6 +14,12 @@ these code may not run. try :
 
 `java -classpath . {{Main class name}}`
 
+* for node.js algorithms
+
+`node {{filename}}`
+
+You may need to modify fs.readFileSync directory if in other than Linux. You can use a text input.
+
 ## Practice sources
 
 1. [Baekjoon Online Judge](https://www.acmicpc.net/)
