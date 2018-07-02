@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<skin>
+  <information>
+    <name>My template</name>
+    <version>v 1.3</version>
+  </information>
+  <author>
+    <name>fw93</name>
+    <homepage>https://fw93.github.io</homepage>
+    <email>freewizard@freewizard.net</email>
+  </author>
+  <default>
+    <recentEntries>5</recentEntries>
+    <recentComments>5</recentComments>
+    <recentTrackbacks>5</recentTrackbacks>
+    <itemsOnGuestbook>10</itemsOnGuestbook>
+    <tagsInCloud>20</tagsInCloud>
+    <sortInCloud>1</sortInCloud>
+    <expandComment>1</expandComment>
+    <expandTrackback>0</expandTrackback>
+    <lengthOfRecentNotice>40</lengthOfRecentNotice>
+    <lengthOfRecentEntry>40</lengthOfRecentEntry>
+    <lengthOfRecentComment>40</lengthOfRecentComment>
+    <lengthOfRecentTrackback>40</lengthOfRecentTrackback>
+    <lengthOfLink>40</lengthOfLink>
+    <showListOnCategory>1</showListOnCategory>
+    <showListOnArchive>1</showListOnArchive>
+    <trackbackMessage>
+      <none>0</none>
+      <single>1</single>
+    </trackbackMessage>
+    <commentMessage>
+      <none>0</none>
+      <single>1</single>
+    </commentMessage>
+    <tree>
+      <color>000000</color>
+      <bgColor>transparent</bgColor>
+      <activeColor>000000</activeColor>
+      <activeBgColor>transparent</activeBgColor>
+      <labelLength>20</labelLength>
+      <showValue>1</showValue>
+    </tree>
+    <contentWidth>852</contentWidth>
+  </default>
+</skin>

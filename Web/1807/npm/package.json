@@ -1,0 +1,15 @@
+{
+  "name": "jeon",
+  "version": "1.0.0",
+  "description": "moduling",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [
+    "apple",
+    "banana"
+  ],
+  "author": "jinhyuk jeon",
+  "license": "Apache-2.0"
+}

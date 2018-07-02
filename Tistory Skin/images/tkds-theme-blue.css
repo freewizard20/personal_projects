@@ -1,0 +1,24 @@
+/* common */
+a {color:#4285f4}
+
+/* paper-button.raised */
+.paper-button.raised, .paper-icon-button.raised {background-color:#4285f4}
+.paper-button.raised:hover, .paper-icon-button.raised:hover {background-color:#3b78e7}
+.paper-button.raised:active, .paper-icon-button.raised:active {background-color:#3367d6}
+
+/* paper-input */
+.paper-input-content .item:focus+.line {background-color:#4285f4}
+
+/* page-header */
+.page-header {background-color:#4285f4}
+
+/* tag-body */
+.tag-item .cloud1 {background-color:#4285f4}
+.tag-item .cloud1:hover {background-color:#3367d6}
+
+/* paper-navigation */
+.nav-end .paper-icon {fill:#4285f4}
+.nav-item span {color:#4285f4}
+
+/* content-article > tistory */
+.content-article .moreless_fold, .content-article .moreless_top, .content-article .moreless_bottom {color:#4285f4}
