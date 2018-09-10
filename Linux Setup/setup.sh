@@ -31,6 +31,7 @@ sudo apt-get -y install patchelf
 sudo apt-get -y install libcupti-dev
 sudo apt-get -y install libegl1-mesa-dev
 sudo apt-get -y install swig libopenmpi-dev zlib1g-dev
+sudo apt-get -y install nvidia-384
 sudo apt -y install docker.io
 pip3 install pytest
 pip3 install virtualenv
