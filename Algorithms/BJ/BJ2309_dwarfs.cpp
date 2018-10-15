@@ -10,10 +10,14 @@ void solve(const vector<int> & height, vector<int> buffer, int curr) {
 	if (curr == 9) {
 		if (flag == 0) {
 			int tot = 0;
+			int count = 0;
 			for (int i = 0; i < buffer.size(); i++) {
-				if (buffer[i] == 1) tot += height[i];
+				if (buffer[i] == 1) {
+					tot += height[i];
+					count++;
+				}
 			}
-			if (tot == 100) {
+			if (tot == 100 && count==7) {
 				vector<int> tmp;
 				for (int i = 0; i < buffer.size(); i++) {
 					if (buffer[i] == 1) {
@@ -37,3 +41,15 @@ void solve(const vector<int> & height, vector<int> buffer, int curr) {
 	solve(height, buffer, curr + 1);
 	buffer.pop_back();
 }
+
+
+int main() {
+
+	vector<int> height(9, 0);
+	for (int i = 0; i < 9; i++) {
+		cin >> height[i];
+	}
+	solve(height, vector<int>(), 0);
+
+}
+
