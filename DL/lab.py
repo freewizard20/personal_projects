@@ -1,16 +1,14 @@
-a,b = (10,15)
-x = 100
+import numpy as np
 
-class Man:
-    def __init__(self, name):
-        self.name = name
+lab = np.array([1,2,3,4])
+lab2 = np.array([1,2,4,5])
+lab3 = np.equal(lab,lab2)
 
-    def hello(self):
-        print(self.name)
+count = 0
+for i in lab3:
+    if i == True:
+        count = count+1
+    print(i)
 
-def hello(a,b,c):
-    return a,b,c
+print(count)
 
-if __name__ == '__main__':
-    print(a)
-    print(b)
