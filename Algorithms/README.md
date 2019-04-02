@@ -29,9 +29,3 @@ You may need to modify fs.readFileSync directory if in other than Linux. You can
 5. [GeekforGeeks](https://www.geeksforgeeks.org)
 6. [Careercup](https://www.careercup.com/)
 
-## Postscript : 
-
-**I do hand coding;** *Many more problems solved on whiteboards, many more solved on paper. Hand coding gives you fundamental strength on programming*
-
-![ex1](./ex1.jpg)
-![ex2](./ex2.jpg)
