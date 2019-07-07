@@ -1,5 +1,13 @@
 # Algorithm practice and implementations
 
+## Solving Algorithm Problems
+
+1. Write down the conditions
+2. Structure the algorithm on paper
+3. Check for edge cases
+4. Code
+5. Debug
+
 ## How to run
 
 these code may not run. try :
