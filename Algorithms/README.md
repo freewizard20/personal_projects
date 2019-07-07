@@ -6,7 +6,7 @@
 2. Structure the algorithm on paper
 3. Check for edge cases
 4. Code
-5. Debug
+5. Debug/Read your code
 
 ## How to run
 
