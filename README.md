@@ -1,37 +1,15 @@
-# Jinhyuk Jeon's personal projects
+# Personal repository
 
-* just for personal use
-* code is not guaranteed to work
+## My toolkit
 
-## basic markdown
+1. IDE : VS Code
+2. Languages : C++(algorithm), Python(Data science), Javascript(Product/End user)
 
-* h1 ~ h6
+## My plans
+* Basics
+1. Skilled on the basics : CS topics, best practices on algorithm, data structures.
+2. Solving algorithm problems : well trained to produce efficient and correct code
+3. Well written and spoken english
 
-`# ~ ######`
-    
-* indented text
-
-`\> {{text}}`
-    
-* code
-
-`\`{{code}}\`
-    
-* links
-
-`[{{link text}}]({{link address}})`
-
-* images
-
-* bold, italic
-
-
-    
-* emojis
-
-`:cry:`
-    
-[check out emoji cheetsheet](https://gist.github.com/roachhd/1f029bd4b50b8a524f3c)
-
-
-> [markdown reference from here](https://gist.github.com/ihoneymon/652be052a0727ad59601)
+* Applications
+1. CV, Robotics and AI
