@@ -7,6 +7,10 @@
 3. Check for edge cases
 4. Code
 5. Debug/Read your code
+* is the algorithm correct?
+* did you read your code?
+* did you simlate your code?
+* did you think about edge cases?
 
 ## Algorithm topics
 * searching
