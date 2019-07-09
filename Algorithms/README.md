@@ -1,5 +1,11 @@
 # Algorithm practice and implementations
 
+## naming convention
+
+0723_DPchocolate.cpp \
+{{monthdate}}_{{problemtype}}{{problemname}}.{{extension}} \
+problem location on comment
+
 ## Solving Algorithm Problems
 
 1. Write down the conditions
