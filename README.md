@@ -13,3 +13,4 @@
 
 * Applications
 1. Robotics, CV and AI
+2. Able to produce good software and maintain proper toolset
