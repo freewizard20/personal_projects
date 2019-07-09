@@ -41,6 +41,13 @@ problem location on comment
 * Matrix
 * Advanced
 
+## fast I/O
+* C++
+```
+cin.tie(null)
+ios::sync_with_stdio(false)
+```
+
 ## How to run
 
 these code may not run. try :
