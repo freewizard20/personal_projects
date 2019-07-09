@@ -12,4 +12,4 @@
 3. Well written and spoken english
 
 * Applications
-1. CV, Robotics and AI
+1. Robotics, CV and AI
