@@ -8,6 +8,29 @@
 4. Code
 5. Debug/Read your code
 
+## Algorithm topics
+* searching
+* sorting
+* graph
+* bit
+* pattern searching
+* geometric
+* mathematical
+* probability
+* game theory
+
+## Data structure topics
+* Array
+* List
+* Stack
+* Queue
+* Tree
+* Hash
+* Graph
+* String
+* Matrix
+* Advanced
+
 ## How to run
 
 these code may not run. try :
