@@ -30,7 +30,7 @@
 9. Product Ideas : Github/Products.md
 
 10. Planning :
->> Daily : Github/Daily.md
->> Monthly : Github/Daily.md
->> Yearly : Github/Here
->> Longer : Somewhere in my brain
+> Daily : Github/Daily.md \
+> Monthly : Github/Daily.md \
+> Yearly : Github/Here \
+> Longer : Somewhere in my brain
