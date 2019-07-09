@@ -15,6 +15,13 @@
 1. Robotics, CV and AI
 2. Able to produce good software and maintain proper toolset
 
+* What results
+1. Good state on algorithms(on different languages also)
+2. Uses proper tools(git, VSCode, CI, deployment..) to make software
+3. Able to implement papers to code
+4. Has background knowledge and able to use them
+5. professional english
+
 ## Life Processes
 
 1. Contacts : okjinhyuk93@gmail.com / freewizard@freewizard.net
